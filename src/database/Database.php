@@ -11,7 +11,7 @@ class Database {
     
     public function __construct(){}
 
-    public function addConnection() {
+    public function addMysqlConnection() {
         $db = new DB();
         $db->addConnection([
             'driver' => DRIVER,
