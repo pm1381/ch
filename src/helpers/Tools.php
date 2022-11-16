@@ -21,6 +21,16 @@ class Tools
         return $result;
     }
 
+    public static function slashToBackSlash($string)
+    {
+        return str_replace("/", "\\", $string);
+    }
+
+    public static function backSlashToSlash($string)
+    {
+        return str_replace("\\", "/", $string);
+    }
+
     public static function uniteUrls($url)
     {
         $lastChar = substr($url, -1);

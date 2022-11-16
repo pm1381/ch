@@ -6,6 +6,9 @@ date_default_timezone_set("Asia/Tehran");
 
 use App\Databases\Database;
 use App\Helpers\Tools;
+use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
+use Psr\Log\LogLevel;
 
 require_once 'src/configs/Static.php';
 require_once 'src/configs/Config.php';

@@ -2,12 +2,19 @@
 
 namespace App\Controllers\Refrence;
 
+use App\Helpers\Tools;
+use Monolog\Handler\FirePHPHandler;
+use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
 use ReflectionClass;
 use stdClass;
+use Whoops\Run;
 
 class GeneralRefrenceController {
     protected $model = null;
     protected $view = null;
+
+    protected static $controllerLog;
 
 
     public function __construct()
@@ -21,6 +28,10 @@ class GeneralRefrenceController {
             $newInstance = $reflectionClass->newInstance();
             $this->model = $newInstance;
         }
+
+        self::$controllerLog = new Logger('controller');
+        $string = Tools::slashToBackSlash(STORAGE . "log/controller.log");
+        self::$controllerLog->pushHandler(new StreamHandler($string));
     }
 
     protected function makeClassData($dataArray, $className) {
