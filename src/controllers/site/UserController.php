@@ -25,7 +25,7 @@ class UserController extends SiteRefrenceController {
     }
 
     public function createUser() {
-        $insertData = Input::getDataFromJson(true);
+        $insertData = Input::getDataJson(true);
         $user = $this->makeClassData($insertData, User::class);
         if (is_object($user)) {
             self::$controllerLog->info('creating a user', ['userPhone' => $user->getUserName()]);
@@ -51,7 +51,7 @@ class UserController extends SiteRefrenceController {
     }
 
     public function updateUser($id) {
-        $updateData = Input::getDataFromJson(true);
+        $updateData = Input::getDataJson(true);
         $check = $this->model->updateById($updateData, $id);
         if ($check) {
             self::$controllerLog->info('updating a user', ['userId' => $id]);

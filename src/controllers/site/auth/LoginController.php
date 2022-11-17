@@ -2,15 +2,20 @@
 
 namespace App\Controllers\Site\Auth;
 
-use App\Helpers\Tools;
+use App\Interfaces\Auth;
+use App\Controllers\Refrence\SiteRefrenceController;
 
-class LoginController {
-    // use AuthenticateUsers
+class LoginController extends SiteRefrenceController implements Auth {
 
     protected $redirectTo = BASE_URI;
 
-    public function __construct()
-    {
-        
+    public function create()
+    {   
     }
+    public function validation()
+    {   
+    }
+
+    
+
 }

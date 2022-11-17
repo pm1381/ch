@@ -3,7 +3,7 @@ namespace App\Interfaces;
 
 interface Auth
 {
-    public function create();
-    public function validation();
+    public function AuthCreate();
+    public function AuthValidation(array $data);
 }
 ?>
