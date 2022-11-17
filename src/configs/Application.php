@@ -1,11 +1,27 @@
 <?php
 
-use App\Helpers\Tools;
-use App\Databases\Database;
+    use App\Database\Database;
+    use App\Helpers\Tools;
+    use Monolog\Handler\StreamHandler;
+    use Monolog\Logger;
 
-$action = Tools::getUrl();
-$mysqldatabase = new Database();
-$mysqldatabase->addMysqlConnection();
+    // other whoops handlers:
+    // $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
+    // $whoops->pushHandler(new \Whoops\Handler\JsonResponseHandler);
+    
+    $whoops = new \Whoops\Run;
+    $whoops->pushHandler(new \Whoops\Handler\CallbackHandler(function($error) {
+        $baseLogger = new Logger('base');
+        $baseLogger->pushHandler(new StreamHandler(Tools::slashToBackSlash(STORAGE . "log/base.log")));
+        $baseLogger->error(" *message : " . $error->getMessage() . " *File : " . $error->getFile() . " *Line : " . $error->getLine());
+        var_dump($error);
+    }));
+    $whoops->register();
 
-require_once 'src/routers/web.php';
-require_once 'src/routers/api.php';
+
+    $action = Tools::getUrl();
+    $mysqldatabase = new Database;
+    $mysqldatabase->addMysqlConnection();
+
+    require_once 'src/routers/web.php';
+    require_once 'src/routers/api.php';

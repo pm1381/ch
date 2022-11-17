@@ -1,11 +1,8 @@
 <?php
 
-namespace App\Databases;
+namespace App\Database;
 
-use Illuminate\Container\Container;
-use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Database\Capsule\Manager as DB;
-// use Phroute\Phroute\Dispatcher;
 
 class Database {
     
