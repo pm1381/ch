@@ -20,6 +20,6 @@ $router->post("/users/{id}", 'site\UserController@updateUser');
 
 Auth::routes($router);
 
-print_f($router, true);
+// print_f($router, true);
 
 $router->run();

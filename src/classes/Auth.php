@@ -35,8 +35,8 @@ class Auth {
         }
 
         if (! array_key_exists('register', $options)) {
-            $router->get('/register', 'site\auth\RegisterConteoller@showRegistrationForm', 'register');
-            $router->get('/register', 'site\auth\RegisterConteoller@register');
+            $router->get('/register', 'site\auth\RegisterController@showRegistrationForm', 'register');
+            $router->post('/register', 'site\auth\RegisterController@register');
         }
     }
 
