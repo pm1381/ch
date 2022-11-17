@@ -6,7 +6,6 @@ use App\Classes\Validation;
 use App\Controllers\Refrence\SiteRefrenceController;
 use App\Helpers\Arrays;
 use App\Helpers\Input;
-use App\Helpers\Tools;
 use App\Interfaces\Auth;
 use App\Models\UserModel;
 use Rakit\Validation\Validator;
