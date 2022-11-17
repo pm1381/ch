@@ -15,7 +15,7 @@ class Arrays
     {
         return[
             'required' => ':attribute الزامی است',
-            'email' => 'فیلد :attribute پست الکترئنیکی معتبری نمیباشد',
+            'email' => 'فیلد :attribute معتبر نمیباشد',
             'min' => 'فیلد :attribute کمتر از حد مجاز است',
             'same' => 'فیلد :attribute با مقدار اصلی خود شباهت ندارند'
         ];

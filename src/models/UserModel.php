@@ -1,9 +1,10 @@
 <?php
 namespace App\Models;
 
+use App\Classes\Date;
 use App\Classes\User as ClassesUser;
-use Illuminate\Database\Capsule\Manager as Capsule;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Capsule\Manager as Capsule;
 
 class UserModel extends Model{
     use BaseModel;
@@ -15,25 +16,35 @@ class UserModel extends Model{
     }
 
     public function getAll() {
-        return UserModel::all(['userPhone', 'userName']);
+        return UserModel::all(['email', 'name']);
     }
 
     public function getById($id) {
-        return UserModel::where('userId', '=', $id)->select('userPhone', 'userName')->get();
+        return UserModel::where('id', '=', $id)->select('email', 'name')->get();
     }
 
     public function updateById(ClassesUser $user, $id) {
-        $data = [
-            'userPhone' => $user->getUserPhone(),
-            'userName'  => $user->getUserName()
-        ];
+        $data['updated_at'] = Date::now();
+        if ($user->getEmail() != "") {
+            $data['email'] = $user->getEmail();
+        }
+        if ($user->getName() != "") {
+            $data['name'] = $user->getName();
+        }
+        if ($user->getPassword() != "") {
+            $data['password'] = $user->getPassword();
+        }
+
         return UserModel::where('userId', $id)->update($data);
     }
 
     public function insertUser(ClassesUser $user) {
         $data = [
-            'userPhone' => $user->getUserPhone(),
-            'userName'  => $user->getUserName()
+            'email' => $user->getEmail(),
+            'name'  => $user->getName(),
+            'password' => $user->getPassword(),
+            'updated_at' => Date::now(),
+            'created_at' => Date::now()
         ]; 
         return UserModel::insert($data);
     }

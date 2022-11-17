@@ -18,14 +18,9 @@ class Validation {
         $this->validator = $validator;
     }
 
-    public function makeValidation()
+    public function makeValidation($check)
     {
-        $v = $this->validator->make($this->data, [
-            'username' => 'required',
-            'email' => 'required|email',
-            'password' => 'required|min:6',
-            'confirmPassword' => 'required|same:password'
-        ]);
+        $v = $this->validator->make($this->data, $check);
         $v->validate();
 
         $this->validData = $v;

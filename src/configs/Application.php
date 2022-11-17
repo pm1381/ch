@@ -23,5 +23,7 @@
     $mysqldatabase = new Database;
     $mysqldatabase->addMysqlConnection();
 
+    
+
     require_once 'src/routers/web.php';
     require_once 'src/routers/api.php';
