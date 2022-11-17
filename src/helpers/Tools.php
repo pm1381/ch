@@ -47,6 +47,11 @@ class Tools
         return $allErrors;
     }
 
+    public static function createSalt()
+    {
+        return password_hash(rand(100000000, 900000000), PASSWORD_DEFAULT);
+    }
+
     public static function backSlashToSlash($string)
     {
         return str_replace("\\", "/", $string);
