@@ -2,6 +2,8 @@
 
 namespace App\Helpers;
 
+use Rakit\Validation\ErrorBag;
+
 class Tools
 {
     public static function manageCUrl($params, $header, $url)
@@ -24,6 +26,25 @@ class Tools
     public static function slashToBackSlash($string)
     {
         return str_replace("/", "\\", $string);
+    }
+
+    public static function translateErrors(ErrorBag $allErrors, $translation)
+    {
+        $messages = $allErrors->messages;
+        foreach ($messages as $from => $valueArray) {
+            foreach ($valueArray as $key => $value) {
+                $value = strtolower($value);
+                foreach ($translation as $k => $trans) {
+                    if (strpos($value, $k) !== false) {
+                        $value = str_replace($k, $trans, $value);
+                        $messages[$from][$key] = $value;
+                        break;
+                    }
+                }
+            }
+        }
+        $allErrors->messages = $messages;
+        return $allErrors;
     }
 
     public static function backSlashToSlash($string)

@@ -27,12 +27,18 @@ class Input
         return false;
     }
 
-    public static function getDataFromJson($wantArray) {
+    public static function getDataJson($wantArray) {
         $json = file_get_contents('php://input');
         if ($wantArray) {
             return json_decode($json, true);
         }
-        json_decode($json);
+        return json_decode($json);
+    }
+
+    public static function getDataForm()
+    {
+        $array = $_REQUEST;
+        return $array;
     }
 }
 ?>
