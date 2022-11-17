@@ -1,47 +1,69 @@
 <?php
 namespace App\Classes;
 
+use App\Helpers\Tools;
+
 class User {
-    private string $userPhone;
-    private string $userName;
- 
+    private string $email = '';
+    private string $name = '';
+    private string $password = '';
+    
     /**
-     * Get the value of userName
+     * Get the value of name
      */ 
-    public function getUserName()
+    public function getName()
     {
-        return $this->userName;
+        return $this->name;
     }
 
     /**
-     * Set the value of userName
+     * Set the value of name
      *
      * @return  self
      */ 
-    public function setUserName($userName)
+    public function setName($name)
     {
-        $this->userName = $userName;
+        $this->name = $name;
 
         return $this;
     }
 
     /**
-     * Get the value of userPhone
+     * Get the value of email
      */ 
-    public function getUserPhone()
+    public function getEmail()
     {
-        return $this->userPhone;
+        return $this->email;
     }
 
     /**
-     * Set the value of userPhone
+     * Set the value of email
      *
      * @return  self
      */ 
-    public function setUserPhone($userPhone)
+    public function setEmail($email)
     {
-        $this->userPhone = $userPhone;
+        $this->email = $email;
 
+        return $this;
+    }
+
+    /**
+     * Get the value of password
+     */ 
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * Set the value of password
+     *
+     * @return  self
+     */ 
+    public function setPassword($password)
+    {
+        $this->password = Tools::createSalt($password);
         return $this;
     }
 }

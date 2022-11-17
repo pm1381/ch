@@ -2,6 +2,7 @@
 
 namespace App\Controllers\Site\Auth;
 
+use App\Classes\User;
 use App\Classes\Validation;
 use App\Controllers\Refrence\SiteRefrenceController;
 use App\Helpers\Arrays;
@@ -14,13 +15,26 @@ class RegisterController extends SiteRefrenceController implements Auth {
 
     protected $redirectTo = BASE_URI;
 
-    public function AuthCreate()
-    {   
+    public function AuthCreate($data)
+    {
+        $user = new User();
+        $user->setName($data['name']);
+        $user->setEmail($data['email']);
+        $user->setPassword($data['password']);
+
+        $this->model = new UserModel();
+        $this->model->insertUser($user);
     }
+
     public function AuthValidation($data)
     {   
         $validation = new Validation($data, new Validator(Arrays::errorView()));
-        $validation->makeValidation();
+        $validation->makeValidation([
+            'name' => 'required',
+            'email' => 'required|email',
+            'password' => 'required|min:6',
+            'confirmPass' => 'required|same:password'
+        ]);
         return $validation->handleValidationError();
     }
 
@@ -34,8 +48,8 @@ class RegisterController extends SiteRefrenceController implements Auth {
         $dataArray = Input::getDataForm();
         $validateResult = $this->AuthValidation($dataArray);
         if ($validateResult['error'] == false) {
-            $this->model = new UserModel();
-            // edame bakhshe login
+            $this->AuthCreate($dataArray);
+            
         } else {
             $erros = $validateResult['grabResult'];
         }
