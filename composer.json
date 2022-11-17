@@ -16,7 +16,8 @@
         "bramus/router": "~1.6",
         "tightenco/collect": "^9.33",
         "monolog/monolog": "^2.8",
-        "filp/whoops": "^2.14"
+        "filp/whoops": "^2.14",
+        "rakit/validation": "^1.4"
     },
     "scripts": {
         "test": "./vendor/bin/phpunit --colors=always",
