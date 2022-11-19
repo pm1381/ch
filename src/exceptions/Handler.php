@@ -8,12 +8,12 @@ class Handler extends BaseHandler
 {
     public function __construct(){}
 
-    public function reportError($error)
+    public function report($error)
     {
         parent::report($error);
     }
 
-    public function renderError(array $data, $error)
+    public function render(array $data, $error)
     {
         parent::render($data, $error);
     }

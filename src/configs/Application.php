@@ -15,8 +15,8 @@ use Monolog\Logger;
 $whoops = new \Whoops\Run;
 $whoops->pushHandler(new \Whoops\Handler\CallbackHandler(function($error) {
     $handler = new Handler();
-    $handler->reportError($error);
-    $handler->renderError(Input::getDataForm(), $error);
+    $handler->report($error);
+    $handler->render(Input::getDataForm(), $error);
 }));
 $whoops->register();
 

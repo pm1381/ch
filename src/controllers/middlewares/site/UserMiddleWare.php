@@ -4,6 +4,7 @@ namespace App\Controllers\MiddleWares\Site;
 
 use App\Classes\User;
 use App\Controllers\MiddleWares\Refrence\GeneralMiddleWare;
+use App\Exceptions\Exception404;
 use App\Exceptions\Handler404;
 use App\Helpers\Tools;
 
@@ -13,9 +14,7 @@ class UserMiddleWare extends GeneralMiddleWare {
         if ($user->isLogin()) {
             foreach ($inputs as $input) {
                 if (! is_numeric($input)) {
-                    $error404 = new Handler404();
-                    $error404->reportError();
-                    $error404->renderError([]);
+                    throw new Exception404("404 error");
                 }
             }
         } else {
