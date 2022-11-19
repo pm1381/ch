@@ -7,8 +7,10 @@ use App\Classes\Validation;
 use App\Controllers\Refrence\SiteRefrenceController;
 use App\Helpers\Arrays;
 use App\Helpers\Input;
+use App\Helpers\Tools;
 use App\Interfaces\Auth;
 use App\Models\UserModel;
+use Ghostff\Session\Session;
 use Rakit\Validation\Validator;
 
 class RegisterController extends SiteRefrenceController implements Auth {
@@ -17,6 +19,7 @@ class RegisterController extends SiteRefrenceController implements Auth {
 
     public function AuthCreate($data)
     {
+
         $user = new User();
         $user->setName($data['name']);
         $user->setEmail($data['email']);
@@ -24,6 +27,9 @@ class RegisterController extends SiteRefrenceController implements Auth {
 
         $this->model = new UserModel();
         $this->model->insertUser($user);
+
+        $session = new Session();
+        $session->set('userId', $user->getPassword());
     }
 
     public function AuthValidation($data)
@@ -40,7 +46,7 @@ class RegisterController extends SiteRefrenceController implements Auth {
 
     public function showRegistrationForm()
     {
-        // this one must return a page (only) 
+        // this one must return a page (only)
     }
 
     public function register()
@@ -49,10 +55,12 @@ class RegisterController extends SiteRefrenceController implements Auth {
         $validateResult = $this->AuthValidation($dataArray);
         if ($validateResult['error'] == false) {
             $this->AuthCreate($dataArray);
-            
-        } else {
-            $erros = $validateResult['grabResult'];
+            $user = new User();
+            if ($user->isLogin()) {
+                Tools::redirect($this->redirectTo, 301);
+            }
         }
+        $erros = $validateResult['grabResult'];
         //remember at the end of the request U MUST back to registration form view to see errors
     }
 
