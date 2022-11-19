@@ -52,6 +52,12 @@ class Tools
         return password_hash(rand(100000000, 900000000), PASSWORD_DEFAULT);
     }
 
+    public static function redirect($url, $code = 301)
+    {
+        header("location: " . $url, true, $code);
+        exit();
+    }
+
     public static function backSlashToSlash($string)
     {
         return str_replace("\\", "/", $string);
@@ -76,12 +82,6 @@ class Tools
         }
     }
 
-    public static function throw404()
-    {
-        header('HTTP/1.1 404 Not Found');
-        return self::setStatus(404, 'route not defined', []);
-    }
-
     public static function setStatus($code, $text, $data)
     {
         header('Content-Type: application/json');
@@ -91,6 +91,7 @@ class Tools
         $jsonArray['data'] = $data;
         $jsonArray['status_text'] = $text;
         echo json_encode($jsonArray);
+        exit();
     }
 
     public static function getUrl()

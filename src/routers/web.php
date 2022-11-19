@@ -5,7 +5,7 @@ use Bramus\Router\Router;
 
 $router = new Router();
 
-//our namespace
+//our namespace : App\Controllers
 $router->setNamespace(CONTROLLER_NAMESPACE);
 // App\Controllers
 
@@ -13,10 +13,10 @@ $router->setNamespace(CONTROLLER_NAMESPACE);
 $router->before('GET', '/users/{id}', 'middlewares\site\UserMiddleWare@numCheck');
 //point : id in here has dependency injection
 
-$router->get('/users', 'site\UserController@getUsers');
-$router->get("/users/{id}", 'site\UserController@getUserById');
-$router->post("/users", 'site\UserController@createUser');
-$router->post("/users/{id}", 'site\UserController@updateUser');
+$router->get('/users/', 'site\UserController@getUsers');
+$router->get("/users/{id}/", 'site\UserController@getUserById');
+$router->post("/users/", 'site\UserController@createUser');
+$router->post("/users/{id}/", 'site\UserController@updateUser');
 
 Auth::routes($router);
 
