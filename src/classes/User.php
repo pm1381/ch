@@ -2,6 +2,7 @@
 namespace App\Classes;
 
 use App\Helpers\Tools;
+use Ghostff\Session\Session;
 
 class User {
     private string $email = '';
@@ -65,5 +66,15 @@ class User {
     {
         $this->password = Tools::createSalt($password);
         return $this;
+    }
+
+    public function isLogin()
+    {
+        $session = new Session();
+        if ($session->exist('userId')) {
+            $sessionData = $session->get('userId');
+            return true;
+        }
+        return false;
     }
 }
