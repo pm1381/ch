@@ -61,7 +61,7 @@ class RegisterController extends SiteRefrenceController implements Auth {
             }
         }
         $erros = $validateResult['grabResult'];
-        //remember at the end of the request U MUST back to registration form view to see errors
+        //MUST back to registration form view to see errors
     }
 
 

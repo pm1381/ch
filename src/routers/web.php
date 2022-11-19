@@ -7,10 +7,9 @@ $router = new Router();
 
 //our namespace : App\Controllers
 $router->setNamespace(CONTROLLER_NAMESPACE);
-// App\Controllers
 
 //middlewares
-$router->before('GET', '/users/{id}', 'middlewares\site\UserMiddleWare@numCheck');
+$router->before('GET', '/users.*', 'middlewares\site\UserMiddleWare@numCheck');
 //point : id in here has dependency injection
 
 $router->get('/users/', 'site\UserController@getUsers');
