@@ -3,7 +3,6 @@ namespace App\Classes;
 
 use App\Helpers\Tools;
 use App\Helpers\Arrays;
-use Rakit\Validation\ErrorBag;
 use Rakit\Validation\Validator;
 
 class Validation {
