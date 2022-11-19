@@ -1,24 +1,27 @@
 <?php
 
-use App\Classes\Auth;
-use Bramus\Router\Router;
+namespace App\Routers;
 
-$router = new Router();
+class WebRouter {
 
-//our namespace : App\Controllers
-$router->setNamespace(CONTROLLER_NAMESPACE);
+    private $router;
 
-//middlewares
-$router->before('GET', '/users/{id}/', 'middlewares\site\UserMiddleWare@numCheck');
-//point : id in here has dependency injection
+    public function __construct($router)
+    {
+        $this->router = $router;
+    }
 
-$router->get('/users/', 'site\UserController@getUsers');
-$router->get("/users/{id}/", 'site\UserController@getUserById');
-$router->post("/users/", 'site\UserController@createUser');
-$router->post("/users/{id}/", 'site\UserController@updateUser');
+    public function getAllRoutes()
+    {
+        //middlewares
+        //point : id in here has dependency injection
+        $this->router->before('GET', '/users/{id}/', 'middlewares\site\UserMiddleWare@numCheck');
 
-Auth::routes($router);
+        $this->router->get('/users/', 'site\UserController@getUsers');
+        $this->router->get("/users/{id}/", 'site\UserController@getUserById');
+        $this->router->post("/users/", 'site\UserController@createUser');
+        $this->router->post("/users/{id}/", 'site\UserController@updateUser');
+    }
 
-// print_f($router, true);
-
-$router->run();
+}
+?>
