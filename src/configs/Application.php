@@ -1,8 +1,10 @@
 <?php
 
+use App\Helpers\Input;
 use App\Database\Database;
 use App\Exceptions\Handler;
-use App\Helpers\Input;
+use App\Routers\RouteProvider;
+use Bramus\Router\Router;
 
 // other whoops handlers:
 // $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
@@ -19,6 +21,7 @@ $whoops->register();
 $mysqldatabase = new Database;
 $mysqldatabase->addMysqlConnection();
 
-require_once 'src/routers/index.php';
+$route = new RouteProvider(new Router());
+$route->routeManage();
 
 ?>
