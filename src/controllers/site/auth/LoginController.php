@@ -9,13 +9,25 @@ class LoginController extends SiteRefrenceController implements Auth {
 
     protected $redirectTo = BASE_URI;
 
-    public function create()
-    {   
-    }
-    public function validation()
-    {   
+    
+    public function authValidation($data)
+    {
+        
     }
 
-    
+    public function showLoginForm()
+    {
+        // returning related view
+    }
+
+    public function login()
+    {
+
+    }
+
+    public function logout()
+    {
+
+    }
 
 }

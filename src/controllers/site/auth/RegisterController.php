@@ -17,7 +17,7 @@ class RegisterController extends SiteRefrenceController implements Auth {
 
     protected $redirectTo = BASE_URI;
 
-    public function AuthCreate($data)
+    public function create($data)
     {
 
         $user = new User();
@@ -54,7 +54,7 @@ class RegisterController extends SiteRefrenceController implements Auth {
         $dataArray = Input::getDataForm();
         $validateResult = $this->AuthValidation($dataArray);
         if ($validateResult['error'] == false) {
-            $this->AuthCreate($dataArray);
+            $this->create($dataArray);
             $user = new User();
             if ($user->isLogin()) {
                 Tools::redirect($this->redirectTo, 301);

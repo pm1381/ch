@@ -28,6 +28,14 @@ class Tools
         return str_replace("/", "\\", $string);
     }
 
+    public static function getFilesInFolder($path, array $ignoreClasses=[])
+    {
+        $ignoreClasses[] = '.';
+        $ignoreClasses[] = '..';
+        $files = array_values(array_diff(scandir($path), $ignoreClasses));
+        return $files;
+    }
+
     public static function translateErrors(ErrorBag $allErrors, $translation)
     {
         $messages = $allErrors->messages;
