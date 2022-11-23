@@ -1,8 +1,4 @@
 <?php
-ini_set('error_reporting', E_ALL);
-ini_set('display_errors', 1);
-date_default_timezone_set("Asia/Tehran");
-
 define('HOST_NAME', 'localhost');
 define('DOMAIN', "");
 define('DRIVER', "mysql");
@@ -18,25 +14,22 @@ define('USERNAME', 'root');
 define('PASSWORD', '');
 
 //---statics---//
-define("VACANT", "");
-define("DIRECTORY_SEPRATOR", "/");
-define("BACKSLASH", "\\");
-define('ROOT', VACANT);
-define('SRC', ROOT . 'src' . DIRECTORY_SEPRATOR);
-define('TEMPLATE', SRC . 'Views' . DIRECTORY_SEPRATOR);
-define('ADMIN_TEMPLATE', TEMPLATE . 'admin' . DIRECTORY_SEPRATOR);
-define('MODEL', SRC . 'Models' . DIRECTORY_SEPRATOR);
-define('ROUTER', SRC . 'Routers' . DIRECTORY_SEPRATOR);
-define('LIBRARY', SRC . 'Libs' . DIRECTORY_SEPRATOR);
-define('CONFIG', SRC . 'Configs' . DIRECTORY_SEPRATOR);
-define('CONTROLLER', SRC . 'Controllers' . DIRECTORY_SEPRATOR);
-define('SITE_CONTROLLER', CONTROLLER . 'Site' . DIRECTORY_SEPRATOR);
-define('ADMIN_CONTROLLER', CONTROLLER . 'Admin' . DIRECTORY_SEPRATOR);
-define('REFRENCE_CONTROLLER', CONTROLLER . 'Refrence' . DIRECTORY_SEPRATOR);
-define('STORAGE', BASE . BACKSLASH . 'storage' . DIRECTORY_SEPRATOR);
+define('ROOT', "");
+define('SRC', ROOT . 'src' . DIRECTORY_SEPARATOR);
+define('TEMPLATE', SRC . 'Views' . DIRECTORY_SEPARATOR);
+define('ADMIN_TEMPLATE', TEMPLATE . 'admin' . DIRECTORY_SEPARATOR);
+define('MODEL', SRC . 'Models' . DIRECTORY_SEPARATOR);
+define('ROUTER', SRC . 'Routers' . DIRECTORY_SEPARATOR);
+define('LIBRARY', SRC . 'Libs' . DIRECTORY_SEPARATOR);
+define('CONFIG', SRC . 'Configs' . DIRECTORY_SEPARATOR);
+define('CONTROLLER', SRC . 'Controllers' . DIRECTORY_SEPARATOR);
+define('SITE_CONTROLLER', CONTROLLER . 'Site' . DIRECTORY_SEPARATOR);
+define('ADMIN_CONTROLLER', CONTROLLER . 'Admin' . DIRECTORY_SEPARATOR);
+define('REFRENCE_CONTROLLER', CONTROLLER . 'Refrence' . DIRECTORY_SEPARATOR);
+define('STORAGE', BASE . "\\" . 'storage' . DIRECTORY_SEPARATOR);
 define("CONTROLLER_NAMESPACE", "App\Controllers");
 
 // and adding all files from library floder
-require_once LIBRARY . 'Function.php';
+require LIBRARY . 'Function.php';
 
-require 'src/configs/Application.php';
+require BASE . 'src/configs/Application.php';

@@ -2,9 +2,7 @@
 
 namespace App\Routers;
 
-use App\Classes\Auth;
 use App\Helpers\Tools;
-use Bramus\Router\Router;
 use ReflectionClass;
 use ReflectionMethod;
 
@@ -16,7 +14,7 @@ class RouteProvider
     {
         $this->router = $router;
 
-        //our namespace : App\Controllers
+        //MY namespace : App\Controllers
         $this->router->setNamespace(CONTROLLER_NAMESPACE);
     }
     public function routeManage()
@@ -30,8 +28,6 @@ class RouteProvider
             $reflectionMethod->invoke($reflectionClass->newInstance($this->router));
         }
 
-        Auth::routes($this->router);
-        
         $this->router->run();
     }
 }
