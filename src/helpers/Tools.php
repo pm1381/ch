@@ -2,6 +2,8 @@
 
 namespace App\Helpers;
 
+use App\Classes\Session;
+use App\Models\UserModel;
 use Rakit\Validation\ErrorBag;
 
 class Tools
@@ -34,6 +36,13 @@ class Tools
         $ignoreClasses[] = '..';
         $files = array_values(array_diff(scandir($path), $ignoreClasses));
         return $files;
+    }
+
+    public static function getLoginUser()
+    {
+        $session = new Session();
+        $userModel = new UserModel();
+        return $userModel->getByToken($session->get('user'));
     }
 
     public static function translateErrors(ErrorBag $allErrors, $translation)
