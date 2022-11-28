@@ -53,8 +53,12 @@ class Session
 
     public function getFlash($key, $default="")
     {
-        $flashedData = $_SESSION['_flashData'][$key];
-        unset($_SESSION['_flashData'][$key]);
+        if (array_key_exists($key, $_SESSION['_flashData'])) {
+            $flashedData = $_SESSION['_flashData'][$key];
+            unset($_SESSION['_flashData'][$key]);
+        } else {
+            $flashedData = $default;
+        }
         return $flashedData;
     }
 
@@ -89,5 +93,4 @@ class Session
         }
         return false;
     }
-
 }

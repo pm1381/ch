@@ -14,12 +14,8 @@ use Ghostff\Session\Session;
 use Rakit\Validation\Validator;
 
 class RegisterController extends SiteRefrenceController implements Auth {
-
-    protected $redirectTo = BASE_URI;
-
     public function create($data)
     {
-
         $user = new User();
         $user->setName($data['name']);
         $user->setEmail($data['email']);
