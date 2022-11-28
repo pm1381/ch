@@ -61,7 +61,7 @@ class Gate
             $user = new User();
             $logeedIn = Tools::getLoginUser();
             if (self::manageBefore($logeedIn, $name, $params)) {
-                if ($user->isLogin() && self::$allGates[$name]['type'] == 0) {
+                if ($user->isLogin()['login'] && self::$allGates[$name]['type'] == 0) {
                     array_unshift($params, $logeedIn);
                 }
                 $result = call_user_func_array($closure, $params);

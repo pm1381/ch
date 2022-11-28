@@ -11,7 +11,7 @@ use App\Helpers\Tools;
 class UserMiddleWare extends GeneralMiddleWare {
     public function numCheck(...$inputs) {
         $user = new User();
-        if ($user->isLogin()) {
+        if ($user->isLogin()['login']) {
             foreach ($inputs as $input) {
                 if (! is_numeric($input)) {
                     throw new Exception404("404 error");

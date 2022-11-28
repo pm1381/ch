@@ -1,7 +1,7 @@
 <?php
 namespace App\Classes;
 
-use App\Helpers\Tools;
+
 use App\Models\UserModel;
 use Ghostff\Session\Session;
 
@@ -9,6 +9,7 @@ class User {
     private string $email = '';
     private string $name = '';
     private string $password = '';
+    private string $token = '';
     
     /**
      * Get the value of name
@@ -65,18 +66,25 @@ class User {
      */ 
     public function setPassword($password)
     {
-        $this->password = Tools::createSalt($password);
+        //password_verify($password, $hashed_password)
+        $this->password = password_hash($password, PASSWORD_DEFAULT);
         return $this;
     }
 
     public function isLogin()
     {
+        $data['login'] = false;
         $session = new Session();
         if ($session->exist('userId')) {
-            $sessionData = $session->get('userId');
-            return true;
+            $token = $session->get('userId');
+            $userModel = new UserModel();
+            $result = $userModel->getByToken($token);
+            if (count($result)) {
+                $data['login'] = true;
+                $data['user'] = $result;
+            }
         }
-        return false;
+        return $data;
     }
 
     public function canDo($name,$userId, ...$params)
@@ -93,5 +101,25 @@ class User {
             return call_user_func_array($closure, $params);
         }
         return false;
+    }
+
+    /**
+     * Get the value of token
+     */ 
+    public function getToken()
+    {
+        return $this->token;
+    }
+
+    /**
+     * Set the value of token
+     *
+     * @return  self
+     */ 
+    public function setToken($token)
+    {
+        $this->token = $token;
+
+        return $this;
     }
 }

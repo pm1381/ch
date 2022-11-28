@@ -63,7 +63,7 @@ class GeneralRefrenceController {
         if (array_key_exists($name, Gate::getAllGates())) {
             $closure = Gate::getAllGates()[$name]['closure'];
             $user = new User();
-            if ($user->isLogin() && Gate::getAllGates()[$name]['type'] == 0) {
+            if ($user->isLogin()['login'] && Gate::getAllGates()[$name]['type'] == 0) {
                 array_unshift($params, Tools::getLoginUser());
             }
             $result = call_user_func_array($closure, $params);

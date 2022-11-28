@@ -21,11 +21,13 @@ class RegisterController extends SiteRefrenceController implements Auth {
         $user->setEmail($data['email']);
         $user->setPassword($data['password']);
 
-        $this->model = new UserModel();
+        $this->model = new UserModel();        
+        $token = Tools::createUniqueToken($this->model);
+        $user->setToken($token);
         $this->model->insertUser($user);
 
         $session = new Session();
-        $session->set('userId', $user->getPassword());
+        $session->set('userId', $token);
     }
 
     public function AuthValidation($data)
@@ -52,7 +54,7 @@ class RegisterController extends SiteRefrenceController implements Auth {
         if ($validateResult['error'] == false) {
             $this->create($dataArray);
             $user = new User();
-            if ($user->isLogin()) {
+            if ($user->isLogin()['login']) {
                 Tools::redirect($this->redirectTo, 301);
             }
         }

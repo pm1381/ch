@@ -30,6 +30,16 @@ class Tools
         return str_replace("/", "\\", $string);
     }
 
+    public static function createUniqueToken($model)
+    {
+        do {
+            $token = Tools::createSalt();
+            $result = $model->getByToken($token);
+            $cnt = count($result);
+        } while ($cnt > 0);
+        return $result;   
+    }
+
     public static function getFilesInFolder($path, array $ignoreClasses=[])
     {
         $ignoreClasses[] = '.';
