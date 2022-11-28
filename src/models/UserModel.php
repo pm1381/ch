@@ -23,6 +23,10 @@ class UserModel extends Model{
         return UserModel::where('id', '=', $id)->select('email', 'name')->get();
     }
 
+    public function getByToken($token){
+        return UserModel::where('user_token', '=', $token)->get();
+    }
+
     public function updateById(ClassesUser $user, $id) {
         $data['updated_at'] = Date::now();
         if ($user->getEmail() != "") {

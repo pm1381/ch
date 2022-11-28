@@ -2,6 +2,7 @@
 namespace App\Classes;
 
 use App\Helpers\Tools;
+use App\Models\UserModel;
 use Ghostff\Session\Session;
 
 class User {
@@ -74,6 +75,22 @@ class User {
         if ($session->exist('userId')) {
             $sessionData = $session->get('userId');
             return true;
+        }
+        return false;
+    }
+
+    public function canDo($name,$userId, ...$params)
+    {
+        if (array_key_exists($name, Gate::getAllGates())) {
+            $closure = Gate::getAllGates()[$name]['closure'];
+            $user = new UserModel();
+            $result = $user->getById($userId);
+            if (Gate::getAllGates()[$name]['type'] == 0) {
+                array_unshift($params, $result);
+            } else {
+                $params[] = $result;
+            }
+            return call_user_func_array($closure, $params);
         }
         return false;
     }

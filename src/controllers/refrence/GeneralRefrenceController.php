@@ -2,13 +2,13 @@
 
 namespace App\Controllers\Refrence;
 
-use App\Helpers\Tools;
-use Monolog\Handler\FirePHPHandler;
-use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use ReflectionClass;
-use stdClass;
-use Whoops\Run;
+use App\Classes\Gate;
+use App\Classes\User;
+use App\Helpers\Tools;
+use App\Exceptions\Exception403;
+use Monolog\Handler\StreamHandler;
 
 class GeneralRefrenceController {
     protected $model = null;
@@ -55,5 +55,21 @@ class GeneralRefrenceController {
             }
         }
         return '';
+    }
+
+    protected function authorize($name, ...$params)
+    {
+        $result = false;
+        if (array_key_exists($name, Gate::getAllGates())) {
+            $closure = Gate::getAllGates()[$name]['closure'];
+            $user = new User();
+            if ($user->isLogin() && Gate::getAllGates()[$name]['type'] == 0) {
+                array_unshift($params, Tools::getLoginUser());
+            }
+            $result = call_user_func_array($closure, $params);
+        }
+        if (! $result) {
+            throw new Exception403('unauthorized move');
+        }
     }
 }
