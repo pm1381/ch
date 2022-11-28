@@ -32,4 +32,4 @@ define("CONTROLLER_NAMESPACE", "App\Controllers");
 // and adding all files from library floder
 require LIBRARY . 'Function.php';
 
-require BASE . 'src/configs/Application.php';
+require 'src/configs/Application.php';
