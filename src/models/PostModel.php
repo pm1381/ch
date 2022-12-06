@@ -15,11 +15,11 @@ class PostModel extends Model{
     }
 
     public function getAll() {
-        return UserModel::all(['title', 'description', 'user']);
+        return PostModel::all(['title', 'description', 'user']);
     }
 
     public function getById($id) {
-        return UserModel::where('id', '=', $id)->select('title', 'user')->get();
+        return PostModel::where('id', '=', $id)->select('title', 'description', 'user')->get();
     }
 
     public function updateById(ClassesPost $post, $id) {
@@ -34,7 +34,7 @@ class PostModel extends Model{
             $data['user'] = $post->getUser();
         }
 
-        return UserModel::where('userId', $id)->update($data);
+        return PostModel::where('userId', $id)->update($data);
     }
 
     public function insertUser(ClassesPost $post) {
@@ -45,6 +45,6 @@ class PostModel extends Model{
             'updated_at' => Date::now(),
             'created_at' => Date::now()
         ]; 
-        return UserModel::insert($data);
+        return PostModel::insert($data);
     }
 }

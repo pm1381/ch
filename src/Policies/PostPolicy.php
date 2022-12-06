@@ -2,35 +2,40 @@
 
 namespace App\Policies;
 
+use App\Classes\Post;
 use App\Classes\User;
-use App\Models\PostModel;
-use App\Models\UserModel;
 
 class PostPolicy
 {
-    public function __construct(){}
+    public function create(User $user)
+    {
+        if ($user->getAdmin() == 1) {
+            print_f("is admin - can create");
+            return true;
+        }
+        return false;
+    }
 
-    public function create(UserModel $user)
+    public function update(User $user, Post $post)
+    {
+        if ($user->getId() == $post->getUser()) {
+            print_f("user can edit/create this post");
+            return true;
+        }
+        return false;
+    }
+
+    public function delete(User $user, Post $post)
     {
 
     }
 
-    public function update(UserModel $user, PostModel $post)
-    {
-
-    }
-
-    public function delete(UserModel $user, PostModel $post)
-    {
-
-    }
-
-    public function softDelete(UserModel $user, PostModel $post)
+    public function softDelete(User $user, Post $post)
     {
         
     }
 
-    public function view(UserModel $user, PostModel $post)
+    public function view(User $user, Post $post)
     {
 
     }
