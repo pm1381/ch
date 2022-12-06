@@ -3,6 +3,7 @@
 use App\Helpers\Input;
 use App\Database\Database;
 use App\Exceptions\Handler;
+use App\Policies\HandleAuthorization;
 use App\Routers\RouteProvider;
 use Bramus\Router\Router;
 
@@ -21,7 +22,10 @@ $whoops->register();
 $mysqldatabase = new Database;
 $mysqldatabase->addMysqlConnection();
 
-$route = new RouteProvider(new Router());
-$route->routeManage();
+// $route = new RouteProvider(new Router());
+// $route->routeManage();
+
+$handleAuth = new HandleAuthorization();
+$handleAuth->registerPolicies();
 
 ?>
