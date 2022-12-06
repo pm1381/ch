@@ -19,8 +19,10 @@ class WebRouter {
 
         $this->router->get('/users/', 'site\UserController@getUsers');
         $this->router->get("/users/{id}/", 'site\UserController@getUserById');
+        $this->router->get('/s', 'site\HomeController@home');
         $this->router->post("/users/", 'site\UserController@createUser');
         $this->router->post("/users/{id}/", 'site\UserController@updateUser');
+        // print_f($this->router);
     }
 
 }
