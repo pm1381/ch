@@ -10,6 +10,8 @@ class User {
     private string $name = '';
     private string $password = '';
     private string $token = '';
+    private int $admin = 1;
+    private int $id;
     
     /**
      * Get the value of name
@@ -81,7 +83,7 @@ class User {
             $result = $userModel->getByToken($token);
             if (count($result)) {
                 $data['login'] = true;
-                $data['user'] = $result;
+                $data['user'] = $result[0];
             }
         }
         return $data;
@@ -119,6 +121,46 @@ class User {
     public function setToken($token)
     {
         $this->token = $token;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of admin
+     */ 
+    public function getAdmin()
+    {
+        return $this->admin;
+    }
+
+    /**
+     * Set the value of admin
+     *
+     * @return  self
+     */ 
+    public function setAdmin($admin)
+    {
+        $this->admin = $admin;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of id
+     */ 
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set the value of id
+     *
+     * @return  self
+     */ 
+    public function setId($id)
+    {
+        $this->id = $id;
 
         return $this;
     }

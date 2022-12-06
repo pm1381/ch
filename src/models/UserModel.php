@@ -24,7 +24,7 @@ class UserModel extends Model{
     }
 
     public function getByToken($token){
-        return UserModel::where('user_token', '=', $token)->get();
+        return UserModel::where('token', '=', $token)->take(1)->get();
     }
 
     public function updateById(ClassesUser $user, $id) {
@@ -48,7 +48,8 @@ class UserModel extends Model{
             'name'  => $user->getName(),
             'password' => $user->getPassword(),
             'updated_at' => Date::now(),
-            'created_at' => Date::now()
+            'created_at' => Date::now(),
+            'token' => $user->getToken()
         ]; 
         return UserModel::insert($data);
     }
