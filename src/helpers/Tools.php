@@ -37,7 +37,7 @@ class Tools
             $result = $model->getByToken($token);
             $cnt = count($result);
         } while ($cnt > 0);
-        return $result;   
+        return $token;
     }
 
     public static function getFilesInFolder($path, array $ignoreClasses=[])
@@ -46,13 +46,6 @@ class Tools
         $ignoreClasses[] = '..';
         $files = array_values(array_diff(scandir($path), $ignoreClasses));
         return $files;
-    }
-
-    public static function getLoginUser()
-    {
-        $session = new Session();
-        $userModel = new UserModel();
-        return $userModel->getByToken($session->get('user'));
     }
 
     public static function translateErrors(ErrorBag $allErrors, $translation)

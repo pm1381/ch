@@ -8,12 +8,7 @@ use App\Models\UserModel;
 
 class Gate
 {
-    private static array $allGates;
-
-    public static function init()
-    {
-        self::$allGates = [];
-    }
+    private static array $allGates = [];
 
     public static function define($name, $closure, $type = 0)
     {
@@ -59,17 +54,18 @@ class Gate
         if (array_key_exists($name, self::$allGates)) {
             $closure = self::$allGates[$name]['closure'];
             $user = new User();
-            $logeedIn = Tools::getLoginUser();
-            if (self::manageBefore($logeedIn, $name, $params)) {
-                if ($user->isLogin()['login'] && self::$allGates[$name]['type'] == 0) {
-                    array_unshift($params, $logeedIn);
+            $logeedIn = $user->isLogin();
+            $loginCheck = $logeedIn['login'];
+            $loginUser = $logeedIn['user'];
+            if (self::manageBefore($loginUser, $name, $params)) {
+                if ($loginCheck && self::$allGates[$name]['type'] == 0) {
+                    array_unshift($params, $loginUser);
                 }
                 $result = call_user_func_array($closure, $params);
-                return self::manageAfter($logeedIn, $name, $params, $result);
+                return self::manageAfter($loginUser, $name, $params, $result);
             }
         }
         return false;
-        
     }
 
     public static function manageAfter($user, $name, $params, $result)
@@ -83,6 +79,9 @@ class Gate
 
     public static function getAllGates()
     {
+        if (count(self::$allGates) == 0) {
+            return [];
+        }
         return self::$allGates;
     }
 
