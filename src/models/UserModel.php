@@ -53,4 +53,12 @@ class UserModel extends Model{
         ]; 
         return UserModel::insert($data);
     }
+
+    public function loginCheck(ClassesUser $user) {
+        $email = $user->getEmail();
+        $name = $user->getName();
+        $password = $user->getPassword();
+
+        return UserModel::where('email', '=', $email)->where('name', '=', $name)->where('password', '=', $password)->take(1)->get();
+    }
 }

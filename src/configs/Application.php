@@ -1,34 +1,38 @@
 <?php
 
-use App\Classes\Gate;
-use App\Classes\User;
-use App\Helpers\Input;
-use App\Database\Database;
-use App\Exceptions\Handler;
-use App\Models\UserModel;
-use App\Policies\HandleAuthorization;
-use App\Routers\RouteProvider;
-use Bramus\Router\Router;
+namespace App\Configs;
 
-// other whoops handlers:
-// $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
-// $whoops->pushHandler(new \Whoops\Handler\JsonResponseHandler);
+use App\Helpers\Tools;
+use ReflectionClass;
+use ReflectionMethod;
 
-$whoops = new \Whoops\Run;
-$whoops->pushHandler(new \Whoops\Handler\CallbackHandler(function($error) {
-    $handler = new Handler();
-    $handler->report($error);
-    $handler->render(Input::getDataForm(), $error);
-}));
-$whoops->register();
+class Application
+{
+    public function run()
+    {
+        $allFiles = Tools::getFilesInFolder(PROVIDER);
+        foreach ($allFiles as $value) {
+            $fullName = __NAMESPACE__ . "\\" .  explode(".", $value)[0];
+            $refclass = new ReflectionClass($fullName);
+            $methods = $refclass->getMethods();
+            foreach ($methods as  $method) {
+                if ($method->name == 'register') {
+                    $registers = ['method' => $method->name, "class" => $method->class];
+                }
 
-$mysqldatabase = new Database;
-$mysqldatabase->addMysqlConnection();
-
-$handleAuth = new HandleAuthorization();
-$handleAuth->registerPolicies();
-
-$route = new RouteProvider(new Router());
-$route->routeManage();
-
+                if ($method->name == 'boot') {
+                    $boots = ['method' => $method->name, "class" => $method->class];
+                }
+            }
+        }
+        foreach ($registers as $value) {
+            $refMethod = new ReflectionMethod($value['class'], $value['method']);
+            $closure = $refMethod->getClosure(new $value['class']);
+        }
+        foreach ($boots as $value) {
+            $refMethod = new ReflectionMethod($value['class'], $value['method']);
+            $closure = $refMethod->getClosure(new $value['class']);
+        }
+    }
+}
 ?>
