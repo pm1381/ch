@@ -23,6 +23,5 @@ class HandleAuthorization
                 Gate::define($name, $closure, 1);
             }
         }
-        // print_f(Gate::getAllGates());
     }
 }

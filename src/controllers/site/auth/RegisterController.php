@@ -21,25 +21,13 @@ class RegisterController extends SiteRefrenceController implements Auth {
         $user->setEmail($data['email']);
         $user->setPassword($data['password']);
 
-        $this->model = new UserModel();        
+        $this->model = new UserModel();
         $token = Tools::createUniqueToken($this->model);
         $user->setToken($token);
         $this->model->insertUser($user);
 
         $session = new Session();
         $session->set('userId', $token);
-    }
-
-    public function AuthValidation($data)
-    {   
-        $validation = new Validation($data, new Validator(Arrays::errorView()));
-        $validation->makeValidation([
-            'name' => 'required',
-            'email' => 'required|email',
-            'password' => 'required|min:6',
-            'confirmPass' => 'required|same:password'
-        ]);
-        return $validation->handleValidationError();
     }
 
     public function showRegistrationForm()
@@ -50,15 +38,18 @@ class RegisterController extends SiteRefrenceController implements Auth {
     public function register()
     {
         $dataArray = Input::getDataForm();
-        $validateResult = $this->AuthValidation($dataArray);
+        $validateResult = $this->AuthValidation($dataArray, [
+            'name' => 'required',
+            'email' => 'required|email',
+            'password' => 'required|min:6',
+            'confirmPass' => 'required|same:password'
+        ]);
         if ($validateResult['error'] == false) {
             $this->create($dataArray);
-            $user = new User();
-            if ($user->isLogin()['login']) {
-                Tools::redirect($this->redirectTo, 301);
-            }
+            Tools::redirect($this->redirectTo, 301);
         }
         $erros = $validateResult['grabResult'];
+        Tools::setStatus(400, 'error in entering data');
         //MUST back to registration form view to see errors
     }
 

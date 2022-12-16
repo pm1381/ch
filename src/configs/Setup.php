@@ -23,14 +23,13 @@ define('ROUTER', SRC . 'Routers' . DIRECTORY_SEPARATOR);
 define('LIBRARY', SRC . 'Libs' . DIRECTORY_SEPARATOR);
 define('CONFIG', SRC . 'Configs' . DIRECTORY_SEPARATOR);
 define('POLICY', SRC . 'Policies' . DIRECTORY_SEPARATOR);
+define('PROVIDER', SRC . 'Providers' . DIRECTORY_SEPARATOR);
 define('CONTROLLER', SRC . 'Controllers' . DIRECTORY_SEPARATOR);
 define('SITE_CONTROLLER', CONTROLLER . 'Site' . DIRECTORY_SEPARATOR);
 define('ADMIN_CONTROLLER', CONTROLLER . 'Admin' . DIRECTORY_SEPARATOR);
 define('REFRENCE_CONTROLLER', CONTROLLER . 'Refrence' . DIRECTORY_SEPARATOR);
-define('STORAGE', BASE . "\\" . 'storage' . DIRECTORY_SEPARATOR);
 define("CONTROLLER_NAMESPACE", "App\Controllers");
+define('STORAGE', BASE . "\\" . 'storage' . DIRECTORY_SEPARATOR);
 
 // and adding all files from library floder
 require LIBRARY . 'Function.php';
-
-require 'src/configs/Application.php';
