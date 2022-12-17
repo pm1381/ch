@@ -10,7 +10,7 @@ class Application
 {
     public function run()
     {
-        $allFiles = Tools::getFilesInFolder(PROVIDER);
+        $allFiles = Tools::getFilesInFolder(PROVIDER, ['ServiceProvider.php']);
         foreach ($allFiles as $value) {
             $fullName = 'App\providers' . "\\" .  explode(".", $value)[0];
             $refclass = new ReflectionClass($fullName);

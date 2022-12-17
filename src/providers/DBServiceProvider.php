@@ -4,7 +4,7 @@ namespace App\Providers;
 use App\Interfaces\Provider;
 use App\Database\Database;
 
-class DBServiceProvider implements Provider {
+class DBServiceProvider extends ServiceProvider implements Provider {
     public function register()
     {
         $mysqldatabase = new Database;

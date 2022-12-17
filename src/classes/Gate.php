@@ -18,8 +18,6 @@ class Gate
                 'closure' => $closure,
                 'type' => $type
             ];
-        } else {
-            throw new ExceptionExistBefore('gate existed before');
         }
     }
 

@@ -19,9 +19,8 @@ class HomeController extends SiteRefrenceController {
     public function home()
     {
         $user = new User();
-        $check = $user->isLogin();
-        if ($check['login']) {
-            $currentUser = $check['user'];
+        if ($user->isLogin()['login']) {
+            $currentUser = $user->isLogin()['user'];
             $user->setName($currentUser['name']);
             $user->setEmail($currentUser['email']);
             $user->setAdmin($currentUser['admin']);

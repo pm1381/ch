@@ -5,7 +5,7 @@ use App\Interfaces\Provider;
 use App\Routers\RouteProvider;
 use Bramus\Router\Router;
 
-class RouteServiceProvider implements Provider {
+class RouteServiceProvider extends ServiceProvider implements Provider {
     public function register()
     {
         $route = new RouteProvider(new Router());

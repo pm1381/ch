@@ -5,7 +5,7 @@ use App\Interfaces\Provider;
 use App\Exceptions\Handler;
 use App\Helpers\Input;
 
-class ErrorHandlingServiceProvider implements Provider {
+class ErrorHandlingServiceProvider extends ServiceProvider implements Provider {
     public function register()
     {
         // other whoops handlers:
