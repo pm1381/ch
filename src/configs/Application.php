@@ -12,27 +12,33 @@ class Application
     {
         $allFiles = Tools::getFilesInFolder(PROVIDER);
         foreach ($allFiles as $value) {
-            $fullName = __NAMESPACE__ . "\\" .  explode(".", $value)[0];
+            $fullName = 'App\providers' . "\\" .  explode(".", $value)[0];
             $refclass = new ReflectionClass($fullName);
             $methods = $refclass->getMethods();
             foreach ($methods as  $method) {
                 if ($method->name == 'register') {
-                    $registers = ['method' => $method->name, "class" => $method->class];
+                    $registers[] = ['method' => 'register', "class" => $method->class];
                 }
 
                 if ($method->name == 'boot') {
-                    $boots = ['method' => $method->name, "class" => $method->class];
+                    $boots[] = ['method' => 'boot', "class" => $method->class];
                 }
             }
         }
+        
         foreach ($registers as $value) {
-            $refMethod = new ReflectionMethod($value['class'], $value['method']);
-            $closure = $refMethod->getClosure(new $value['class']);
+            $this->runClosures($value);
         }
         foreach ($boots as $value) {
-            $refMethod = new ReflectionMethod($value['class'], $value['method']);
-            $closure = $refMethod->getClosure(new $value['class']);
+            $this->runClosures($value);
         }
+    }
+
+    private function runClosures($value, $params = [])
+    {
+        $refMethod = new ReflectionMethod($value['class'], $value['method']);
+        $closure = $refMethod->getClosure(new $value['class']);
+        call_user_func_array($closure, $params);
     }
 }
 ?>
