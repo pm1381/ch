@@ -8,8 +8,6 @@ use App\Helpers\Input;
 use App\Helpers\Tools;
 use Exception;
 use Monolog\Handler\StreamHandler;
-use TypeError;
-use Whoops\Exception\ErrorException;
 
 class BaseHandler {
     protected array $dontReport = [

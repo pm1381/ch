@@ -2,7 +2,7 @@
 
 namespace App\Controllers\Site;
 
-use App\Classes\User;
+use App\Services\User;
 use App\Controllers\Refrence\SiteRefrenceController;
 use App\Helpers\Input;
 use App\Helpers\Tools;

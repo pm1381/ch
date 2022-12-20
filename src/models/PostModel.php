@@ -2,7 +2,7 @@
 namespace App\Models;
 
 use App\Classes\Date;
-use App\Classes\Post as ClassesPost;
+use App\Services\Post as ClassesPost;
 use Illuminate\Database\Eloquent\Model;
 
 class PostModel extends BaseModel{

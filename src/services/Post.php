@@ -1,5 +1,5 @@
 <?php
-namespace App\Classes;
+namespace App\Services;
 
 class Post {
     private string $title;

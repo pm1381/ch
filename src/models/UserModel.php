@@ -2,7 +2,7 @@
 namespace App\Models;
 
 use App\Classes\Date;
-use App\Classes\User as ClassesUser;
+use App\Services\User as ClassesUser;
 use Illuminate\Database\Eloquent\Model;
 
 class UserModel extends BaseModel{

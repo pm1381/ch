@@ -2,16 +2,13 @@
 
 namespace App\Controllers\Site\Auth;
 
-use App\Classes\User;
-use App\Classes\Validation;
+use App\Services\User;
 use App\Controllers\Refrence\SiteRefrenceController;
-use App\Helpers\Arrays;
 use App\Helpers\Input;
 use App\Helpers\Tools;
 use App\Interfaces\Auth;
 use App\Models\UserModel;
 use Ghostff\Session\Session;
-use Rakit\Validation\Validator;
 
 class RegisterController extends SiteRefrenceController implements Auth {
     public function create($data)

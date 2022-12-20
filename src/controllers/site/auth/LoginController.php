@@ -2,7 +2,7 @@
 
 namespace App\Controllers\Site\Auth;
 
-use App\Classes\User;
+use App\Services\User;
 use App\Helpers\Input;
 use App\Helpers\Tools;
 use App\Classes\Session;
