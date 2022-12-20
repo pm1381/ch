@@ -7,6 +7,8 @@ use App\Controllers\Refrence\SiteRefrenceController;
 use App\Helpers\Input;
 use App\Helpers\Tools;
 
+use function PHPSTORM_META\type;
+
 class UserController extends SiteRefrenceController {
 
 
@@ -18,7 +20,7 @@ class UserController extends SiteRefrenceController {
     public function getUsers() {
         // we can also change the format of log file
         self::$controllerLog->info('getting all users');
-        $users = $this->model->getAll();
+        $users = json_decode($this->model->getAll(), true);
         if (count($users)) {
             Tools::setStatus(200, 'founded users', $users);
         }
