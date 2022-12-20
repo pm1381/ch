@@ -77,7 +77,7 @@ class LoginController extends SiteRefrenceController implements Auth {
         $count = $attempModel->howManyAttempts(Tools::getIp());
         if  ($count > 3)
             return false;
-        return true;    
+        return true;
     }
 
     private function addLoginAttempt()

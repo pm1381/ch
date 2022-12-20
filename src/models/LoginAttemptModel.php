@@ -28,7 +28,6 @@ class LoginAttemptModel extends BaseModel{
     public function howManyAttempts($ip)
     {
         $lastFiveMinutes = strtotime("5 minutes ago");
-        print_f($lastFiveMinutes);
 
         $result = LoginAttemptModel::selectRaw('COUNT(*) AS cnt, ip')->where('ip', '=', $ip)
             ->groupBy('ip')->get();
