@@ -4,7 +4,6 @@ namespace App\Models;
 use App\Classes\Date;
 use App\Classes\User as ClassesUser;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Capsule\Manager as Capsule;
 
 class UserModel extends BaseModel{
 
@@ -29,7 +28,7 @@ class UserModel extends BaseModel{
     //mutator
     public function setNameAttribute($value)
     {
-        //mutator does not work with insert.
+        //mutator does not work with insert. only with create
         $this->attributes['name'] = strtoupper($value);
     }
 
