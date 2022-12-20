@@ -2,6 +2,7 @@
 
 namespace App\Controllers\Site\Auth;
 
+use App\Classes\Date;
 use App\Services\User;
 use App\Helpers\Input;
 use App\Helpers\Tools;
@@ -9,6 +10,7 @@ use App\Classes\Session;
 use App\Interfaces\Auth;
 use App\Models\UserModel;
 use App\Controllers\Refrence\SiteRefrenceController;
+use App\Models\LoginAttemptModel;
 
 class LoginController extends SiteRefrenceController implements Auth {    
     public function checkLogin($data)
@@ -35,21 +37,29 @@ class LoginController extends SiteRefrenceController implements Auth {
 
     public function login()
     {
-        $dataArray = Input::getDataForm();
-        $validateResult = $this->AuthValidation($dataArray, [
-            'email' => 'required|email',
-            'password' => 'required|min:6'
-        ]);
+        $errors = [];
+        if ($this->loginAttempts()) {
+            $dataArray = Input::getDataForm();
+            $validateResult = $this->AuthValidation($dataArray, [
+                'email' => 'required|email',
+                'password' => 'required|min:6'
+            ]);
 
-        if ($validateResult['error'] == false) {
-            if (count($this->checkLogin($dataArray))) {
-                // Tools::redirect($this->redirectTo, 301);
+            if ($validateResult['error'] == false) {
+                if (count($this->checkLogin($dataArray))) {
+                    // Tools::redirect($this->redirectTo, 301);
+                } else {
+                    $this->addLoginAttempt();
+                    Tools::setStatus(400, 'email and password does not exist');
+                }
             } else {
-                Tools::setStatus(400, 'email and password does not exist');
+                $errors = $validateResult['grabResult'];
+                $message = 'wrong validation';
             }
-        }
-        $errors = $validateResult['grabResult'];
-        Tools::setStatus(400, 'error in entering data');
+        } else
+            $message = 'too many attempts';
+        
+        Tools::setStatus(400, $message);
         //MUST back to registration form view to see errors
     }
 
@@ -63,6 +73,17 @@ class LoginController extends SiteRefrenceController implements Auth {
     private function loginAttempts()
     {
         // check wrong number of neseccary attempts;
+        $attempModel = new LoginAttemptModel();
+        $count = $attempModel->howManyAttempts(Tools::getIp());
+        if  ($count > 3)
+            return false;
+        return true;    
+    }
+
+    private function addLoginAttempt()
+    {
+        $attempModel = new LoginAttemptModel();
+        $attempModel->addAttempt();
     }
 
 }

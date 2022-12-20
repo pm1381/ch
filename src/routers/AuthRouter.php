@@ -5,11 +5,15 @@ namespace App\Routers;
 class AuthRouter {
 
     private $router;
-    private $options;
+    private $options = [];
 
-    public function __construct($router, $options=[])
+    public function __construct($router)
     {
         $this->router = $router;
+    }
+
+    public function setOptions($options)
+    {
         $this->options = $options;
     }
 
@@ -23,8 +27,8 @@ class AuthRouter {
     private function authSite()
     {
         if (! array_key_exists('login', $this->options)) {
-            $this->router->get('/login/', 'site\auth\LoginController@showLoginForm', 'login');
-            $this->router->post('/login/', 'site\auth\LoginController@login');
+            // $this->router->get('/login/', 'site\auth\LoginController@showLoginForm', 'login');
+            $this->router->get('/login/', 'site\auth\LoginController@login');
             $this->router->post('/logout/', 'site\auth\LoginController@logout', 'logout');
         }
 
@@ -49,7 +53,9 @@ class AuthRouter {
         }
     }
 
-    private function authMiddleWare(){}
+    private function authMiddleWare(){
+        $this->router->before('GET', '/login/', 'middlewares\site\LoginMiddleWare@ipCheck');
+    }
     private function authAdmin(){}
 }
 
