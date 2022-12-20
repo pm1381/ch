@@ -1,7 +1,9 @@
 <?php
 namespace App\Providers;
 
-class ServiceProvider {
+use Illuminate\Container\Container;
 
+class ServiceProvider extends Container {
+    
 }
 

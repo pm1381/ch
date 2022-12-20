@@ -5,8 +5,7 @@ use App\Classes\Date;
 use App\Classes\Post as ClassesPost;
 use Illuminate\Database\Eloquent\Model;
 
-class PostModel extends Model{
-    use BaseModel;
+class PostModel extends BaseModel{
 
     public function __construct(){
         $this->table = 'post';

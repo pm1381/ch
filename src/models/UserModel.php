@@ -6,8 +6,9 @@ use App\Classes\User as ClassesUser;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Capsule\Manager as Capsule;
 
-class UserModel extends Model{
-    use BaseModel;
+class UserModel extends BaseModel{
+
+    protected $fillable = ['email', 'name'];
 
     public function __construct(){
         $this->table = 'user';
@@ -15,8 +16,21 @@ class UserModel extends Model{
         Model::preventsSilentlyDiscardingAttributes(true);
     }
 
+    //accessor
+    public function getNameAttribute($value)
+    {
+        return strtoupper($value);
+    }
+
     public function getAll() {
-        return UserModel::all(['email', 'name']);
+        return UserModel::all(['email', 'name', 'admin']);
+    }
+
+    //mutator
+    public function setNameAttribute($value)
+    {
+        //mutator does not work with insert.
+        $this->attributes['name'] = strtoupper($value);
     }
 
     public function getById($id) {

@@ -1,23 +1,16 @@
 <?php
 namespace App\Models;
 
-use App\Helpers\Tools;
-use Monolog\Handler\StreamHandler;
-use Monolog\Logger;
+use Illuminate\Database\Eloquent\Model;
 
-trait BaseModel {
+class BaseModel extends Model {
 
     protected $queryCount;
     protected $queryResult;
 
     protected static $modelLog;
 
-    public function __construct()
-    {
-        self::$modelLog = new Logger('model');
-        $string = Tools::slashToBackSlash(STORAGE . "log/model.log");
-        self::$modelLog->pushHandler(new StreamHandler($string));
-    }
+    public function __construct() {}
 
     public function getCount() {
         return $this->queryCount;
@@ -26,5 +19,4 @@ trait BaseModel {
     public function getResult() {
         return $this->queryResult;
     }
-
 }
