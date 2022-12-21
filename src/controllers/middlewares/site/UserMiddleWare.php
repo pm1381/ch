@@ -7,7 +7,7 @@ use App\Controllers\MiddleWares\Refrence\GeneralMiddleWare;
 use App\Exceptions\Exception404;
 use App\Helpers\Tools;
 
-class UserMiddleWare extends GeneralMiddleWare {
+class UserMiddleWare {
     public function numCheck(...$inputs) {
         $user = new User();
         if ($user->isLogin()['login']) {

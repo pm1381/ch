@@ -16,12 +16,6 @@ class UserModel extends BaseModel{
         Model::preventsSilentlyDiscardingAttributes(true);
     }
 
-    //accessor
-    public function getNameAttribute($value)
-    {
-        return strtoupper($value);
-    }
-
     public function getAll() {
         $redis = new Redis();
         $redisResult = $redis->get('allUsers');
@@ -32,6 +26,12 @@ class UserModel extends BaseModel{
         $redis->store('allUsers', $res);
         $redis->expireDate('allUsers', 60);
         return $res;
+    }
+
+    //accessor
+    public function getNameAttribute($value)
+    {
+        return strtoupper($value);
     }
 
     //mutator
@@ -57,18 +57,24 @@ class UserModel extends BaseModel{
         if ($user->getName() != "") {
             $data['name'] = $user->getName();
         }
-        if ($user->getPassword() != "") {
-            $data['password'] = $user->getPassword();
-        }
+        return UserModel::where('id', $id)->update($data);
+    }
 
-        return UserModel::where('userId', $id)->update($data);
+    public function updateToken(ClassesUser $user)
+    {
+        return UserModel::where('id', $user->getId())->update(['token' => $user->getToken()]);
     }
 
     public function insertUser(ClassesUser $user) {
+        //first check if user logged in before;
+        $hashedPassword = $user->hashPassword();
+        if(count($this->loginCheck($user)) > 0) {
+            return false;
+        }
         $data = [
             'email' => $user->getEmail(),
             'name'  => $user->getName(),
-            'password' => $user->getPassword(),
+            'password' => $hashedPassword,
             'updated_at' => Date::now(),
             'created_at' => Date::now(),
             'token' => $user->getToken()
@@ -78,9 +84,13 @@ class UserModel extends BaseModel{
 
     public function loginCheck(ClassesUser $user) {
         $email = $user->getEmail();
-        $name = $user->getName();
-        $password = $user->getPassword();
+        $password = $user->getPassword(); // it is real password. not hashed
 
-        return UserModel::where('email', '=', $email)->where('name', '=', $name)->where('password', '=', $password)->take(1)->get();
+        $res = UserModel::where('email', '=', $email)->get();
+        foreach ($res as $each) {
+            if ($user->checkPassword($password, $each->password))
+                return $res;
+        }
+        return [];
     }
 }

@@ -7,14 +7,13 @@ class Session
     private $id;
     private $options;
 
-    public function __construct($id="", $options=[])
+    public function start()
     {
-        $this->id = $id;
-        $this->options = $options;
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
     }
+
     public function set($key, $val)
     {
         $_SESSION[$key] = $val;

@@ -29,7 +29,6 @@ class User {
     public function setName($name)
     {
         $this->name = $name;
-
         return $this;
     }
 
@@ -49,7 +48,6 @@ class User {
     public function setEmail($email)
     {
         $this->email = $email;
-
         return $this;
     }
 
@@ -68,9 +66,18 @@ class User {
      */ 
     public function setPassword($password)
     {
-        //password_verify($password, $hashed_password)
-        $this->password = password_hash($password, PASSWORD_DEFAULT);
+        $this->password = $password;
         return $this;
+    }
+
+    public function hashPassword()
+    {
+        return password_hash($this->password, PASSWORD_DEFAULT);
+    }
+
+    public function checkPassword($password, $hashed)
+    {
+        return password_verify($password, $hashed);
     }
 
     public function isLogin()
@@ -121,7 +128,6 @@ class User {
     public function setToken($token)
     {
         $this->token = $token;
-
         return $this;
     }
 
@@ -141,7 +147,6 @@ class User {
     public function setAdmin($admin)
     {
         $this->admin = $admin;
-
         return $this;
     }
 
@@ -161,7 +166,6 @@ class User {
     public function setId($id)
     {
         $this->id = $id;
-
         return $this;
     }
 }

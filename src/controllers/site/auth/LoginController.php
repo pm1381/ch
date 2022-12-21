@@ -15,19 +15,28 @@ use App\Models\LoginAttemptModel;
 class LoginController extends SiteRefrenceController implements Auth {    
     public function checkLogin($data)
     {
+        $session = new Session();
+        $session->destroy();
+
         $user = new User();
         $user->setEmail($data['email']);
         $user->setPassword($data['password']);
 
         $this->model = new UserModel();
-        if (array_key_exists('rememberMe', $data) && $data['rememberMe']) {
-            $token = Tools::createUniqueToken($this->model);
-            $user->setToken($token);
-            $session = new Session();
-            $session->set('userId', $token);
-        }
+        $result = $this->model->loginCheck($user);
 
-        return $this->model->loginCheck($user);
+        if (count($result) > 0) {
+            $user->setId($result[0]->id);
+            if (array_key_exists('rememberMe', $data) && $data['rememberMe']) {
+                $token = Tools::createUniqueToken($this->model);
+                $user->setToken($token);
+                $this->model->updateToken($user);
+                $session = new Session();
+                $session->set('userId', $token);
+            }
+            return true;
+        }
+        return false;
     }
 
     public function showLoginForm()
@@ -46,20 +55,19 @@ class LoginController extends SiteRefrenceController implements Auth {
             ]);
 
             if ($validateResult['error'] == false) {
-                if (count($this->checkLogin($dataArray))) {
-                    // Tools::redirect($this->redirectTo, 301);
+                if ($this->checkLogin($dataArray)) {
+                    Tools::setStatus(200, 'logged in');
+                    Tools::redirect($this->redirectTo, 301);
                 } else {
                     $this->addLoginAttempt();
-                    Tools::setStatus(400, 'email and password does not exist');
+                    $errors[] = 'user does not exist';
                 }
-            } else {
+            } else 
                 $errors = $validateResult['grabResult'];
-                $message = 'wrong validation';
-            }
         } else
-            $message = 'too many attempts';
+            $errors[] = 'too many attempts';
         
-        Tools::setStatus(400, $message);
+        Tools::setStatus(400, $errors);
         //MUST back to registration form view to see errors
     }
 

@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB as FacadesDB;
 class LoginAttemptModel extends BaseModel{
 
     protected $fillable = ['ip', 'date'];
+    public $timestamps = false;
 
     public function __construct(){
         $this->table = 'loginAttempt';
@@ -29,7 +30,7 @@ class LoginAttemptModel extends BaseModel{
     {
         $lastFiveMinutes = strtotime("5 minutes ago");
 
-        $result = LoginAttemptModel::selectRaw('COUNT(*) AS cnt, ip')->where('ip', '=', $ip)
+        $result = LoginAttemptModel::selectRaw('COUNT(*) AS cnt, ip')->where('ip', '=', $ip)->where('date', '>', $lastFiveMinutes)
             ->groupBy('ip')->get();
     
         if (count($result) == 0)
