@@ -27,7 +27,7 @@ class ForgotPasswordController extends SiteRefrenceController {
             $userService->setEmail($dataArray['email']);
             $userModel = new UserModel();
             $userModel->updateRememberToken($userService);
-            Mail::sendMail();
+            Mail::sendMail($userService);
         } else {
             Tools::setStatus(400, 'email format is wrong');
         }

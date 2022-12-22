@@ -20,7 +20,8 @@
         "rakit/validation": "^1.4",
         "ghostff/session": "^2.0",
         "predis/predis": "^2.0",
-        "illuminate/mail": "^9.45"
+        "illuminate/mail": "^9.45",
+        "phpmailer/phpmailer": "^6.7"
     },
     "scripts": {
         "test": "./vendor/bin/phpunit --colors=always",
