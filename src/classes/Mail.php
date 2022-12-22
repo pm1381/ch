@@ -40,16 +40,24 @@ class Mail {
 
     public function reciever(User $user)
     {
-        // $user->getEmail();
-        $this->phpmailer->addAddress('parham.minou@gmail.com');
+        // $user->getEmail(); $user->getName();
+        $this->phpmailer->addAddress('parham.minou@gmail.com', 'parham');
         return $this;
     }
 
-    public function content($htmFilePath, $imagesPath)
+    public function view($htmFilePath, $imagesPath="")
     {
-        $this->phpMailer->msgHTML(file_get_contents($htmFilePath), $imagesPath);
+        $this->phpMailer->msgHTML(file_get_contents($htmFilePath));
         return $this;
     }
+
+    public function text($htmFilePath)
+    {
+        $this->phpMailer->html2text(file_get_contents($htmFilePath)); 
+        return $this;
+    }
+
+    
 
     // it is also possible to add more stuff from PHPMailer to the project.
     // but i wanted to keep it simple;
