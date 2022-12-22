@@ -37,8 +37,7 @@ class UserModel extends BaseModel{
     //mutator
     public function setNameAttribute($value)
     {
-        //mutator does not work with insert. only with create
-        $this->attributes['name'] = strtoupper($value);
+        $this->attributes['name'] = strtoupper($value); ////mutator does not work with insert. only with create
     }
 
     public function getById($id) {
@@ -65,9 +64,14 @@ class UserModel extends BaseModel{
         return UserModel::where('id', $user->getId())->update(['token' => $user->getToken()]);
     }
 
+    public function updateRememberToken(ClassesUser $user)
+    {
+        
+        return UserModel::where('email', '=', $user->getEmail())->update(['remember_token' => 1]);
+    }
+
     public function insertUser(ClassesUser $user) {
-        //first check if user logged in before;
-        $hashedPassword = $user->hashPassword();
+        $hashedPassword = $user->hashPassword(); //first check if user logged in before;
         if(count($this->loginCheck($user)) > 0) {
             return false;
         }

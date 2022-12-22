@@ -15,9 +15,6 @@ use App\Models\LoginAttemptModel;
 class LoginController extends SiteRefrenceController implements Auth {    
     public function checkLogin($data)
     {
-        $session = new Session();
-        $session->destroy();
-
         $user = new User();
         $user->setEmail($data['email']);
         $user->setPassword($data['password']);

@@ -43,8 +43,8 @@ class AuthRouter {
 
         if (! array_key_exists('password.reset', $this->options)) {
             $this->router->get('/password/reset/', 'site\auth\ForgotPasswordController@showLinkRequestForm', 'password.request');
-            $this->router->post('/password/reset/', 'site\auth\ResetPasswordController@reset', 'password.update');
-            $this->router->get('/password/reset/{token}/', 'site\auth\ResetPasswordController@showResetForm');
+            $this->router->post('/password/reset/', 'site\auth\ForgotPasswordController@reset', 'password.update');
+            $this->router->get('/password/reset/{token}/', 'site\auth\ForgotPasswordController@showResetForm');
         }
 
         if (! array_key_exists('register', $this->options)) {

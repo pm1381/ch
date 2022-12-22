@@ -13,6 +13,16 @@ define('DB_NAME', 'charand');
 define('USERNAME', 'root');
 define('PASSWORD', '');
 
+//---mail---//
+define('MAIL_MAILER', "smtp");
+define('MAIL_HOST', "smtp.mailtrap.io");
+define('MAIL_PORT', 2525);
+define('MAIL_USERNAME', "71c82a6e3b0ef2");
+define('MAIL_PASSWORD', "397c00c8664212");
+define('MAIL_ENCRYPTION', null);
+define('MAIL_FROM_ADDRESS', "parham.minou@gmail.com");
+define('MAIL_FROM_NAME', "parham simple framework");
+
 //---statics---//
 define('ROOT', "");
 define('SRC', ROOT . 'src' . DIRECTORY_SEPARATOR);

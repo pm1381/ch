@@ -19,7 +19,8 @@
         "filp/whoops": "^2.14",
         "rakit/validation": "^1.4",
         "ghostff/session": "^2.0",
-        "predis/predis": "^2.0"
+        "predis/predis": "^2.0",
+        "illuminate/mail": "^9.45"
     },
     "scripts": {
         "test": "./vendor/bin/phpunit --colors=always",
