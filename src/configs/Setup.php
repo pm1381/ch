@@ -24,8 +24,8 @@ define('MAIL_FROM_ADDRESS', "parham.minou@gmail.com");
 define('MAIL_FROM_NAME', "parham simple framework");
 
 //---statics---//
-define('ROOT', "");
-define('SRC', ROOT . 'src' . DIRECTORY_SEPARATOR);
+define('SRC', 'src' . DIRECTORY_SEPARATOR);
+define('PUBLIC_FOLDER', 'public' . DIRECTORY_SEPARATOR);
 define('TEMPLATE', SRC . 'Views' . DIRECTORY_SEPARATOR);
 define('ADMIN_TEMPLATE', TEMPLATE . 'admin' . DIRECTORY_SEPARATOR);
 define('MODEL', SRC . 'Models' . DIRECTORY_SEPARATOR);
@@ -38,6 +38,9 @@ define('CONTROLLER', SRC . 'Controllers' . DIRECTORY_SEPARATOR);
 define('SITE_CONTROLLER', CONTROLLER . 'Site' . DIRECTORY_SEPARATOR);
 define('ADMIN_CONTROLLER', CONTROLLER . 'Admin' . DIRECTORY_SEPARATOR);
 define('REFRENCE_CONTROLLER', CONTROLLER . 'Refrence' . DIRECTORY_SEPARATOR);
+define('VIEW', SRC . 'views' . DIRECTORY_SEPARATOR);
+define('SITE_VIEW', VIEW . 'site' . DIRECTORY_SEPARATOR);
+define('ADMIN_VIEW', VIEW . 'admin' . DIRECTORY_SEPARATOR);
 define("CONTROLLER_NAMESPACE", "App\Controllers");
 define('STORAGE', BASE . "\\" . 'storage' . DIRECTORY_SEPARATOR);
 

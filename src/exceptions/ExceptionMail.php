@@ -16,7 +16,7 @@ class ExceptionMail extends Exception {
         //action that must be provided;
     }
 
-    public function render(array $request, Exception $error)
+    public function render(array $request, $error)
     {
         $message = 'error is happend while trying to send email . error = ' . $error->getMessage();
         Tools::setStatus(400, $message);
