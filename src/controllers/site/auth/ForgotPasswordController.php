@@ -27,7 +27,8 @@ class ForgotPasswordController extends SiteRefrenceController {
             $userService->setEmail($dataArray['email']);
             $userModel = new UserModel();
             $userModel->updateRememberToken($userService);
-            Mail::sendMail($userService);
+            $mail = new Mail();
+            $mail->reciever($userService)->subject('forgot password email')->content(SITE_VIEW . "mail/mail.php", PUBLIC_FOLDER)->send();
         } else {
             Tools::setStatus(400, 'email format is wrong');
         }
