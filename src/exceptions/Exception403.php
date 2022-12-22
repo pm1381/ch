@@ -19,6 +19,6 @@ class Exception403 extends Exception {
     public function render(array $request, $error)
     {
         // returning 404 view
-        Tools::setStatus(403, '403 unauthorized move', []);
+        Tools::setStatus(403, '403 unauthorized move');
     }
 }

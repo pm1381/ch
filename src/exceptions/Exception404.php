@@ -19,6 +19,6 @@ class Exception404 extends Exception {
     public function render(array $request, $error)
     {
         // returning 404 view
-        Tools::setStatus(404, '404 page not found', []);
+        Tools::setStatus(404, '404 page not found');
     }
 }
