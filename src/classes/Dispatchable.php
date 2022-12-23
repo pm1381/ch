@@ -2,9 +2,7 @@
 
 namespace App\Classes;
 
-use Exception;
 use ReflectionClass;
-use ReflectionMethod;
 
 trait Dispatchable
 {
@@ -36,16 +34,11 @@ trait Dispatchable
         return $this;
     }
 
-    public  function dispatch(...$arguments)
+    public  function dispatch()
     {
         foreach (self::$listeners as $listen) {
-            $modelConstructor = new ReflectionMethod($this, '__construct');
-            $numOfParams = $modelConstructor->getNumberOfParameters();
-            if (count($numOfParams) != count($arguments)) {
-                throw new Exception("number of arguments for construct method does not match");
-            }
-            $newInstance = (new ReflectionClass($this))->newInstanceArgs($arguments);
-            $listen->handle($newInstance);
+            $r = new ReflectionClass($listen);
+            $r->newInstance()->handle($this);
         }
     }
 }

@@ -12,6 +12,7 @@ class User {
     private string $token = '';
     private int $admin = 1;
     private int $id;
+    private string $remeberToken = '';
     
     /**
      * Get the value of name
@@ -166,6 +167,25 @@ class User {
     public function setId($id)
     {
         $this->id = $id;
+        return $this;
+    }
+
+    /**
+     * Get the value of remeberToken
+     */ 
+    public function getRemeberToken()
+    {
+        return $this->remeberToken;
+    }
+
+    /**
+     * Set the value of remeberToken
+     *
+     * @return  self
+     */ 
+    public function setRemeberToken($remeberToken)
+    {
+        $this->remeberToken = $remeberToken;
         return $this;
     }
 }

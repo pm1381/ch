@@ -20,7 +20,7 @@ class EventServiceProvider extends ServiceProvider implements Provider {
     {
         foreach ($this->listens as $event => $listeners) {
             $r = new ReflectionClass($event);
-            $eventInstance = $r->newInstance();
+            $eventInstance = $r->newInstanceWithoutConstructor();
             $eventInstance->setListeners($listeners);
 
             if (array_key_exists($event, $this->subscribes)) {

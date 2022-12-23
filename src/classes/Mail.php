@@ -2,6 +2,7 @@
 namespace App\Classes;
 
 use App\Exceptions\ExceptionMail;
+use App\Helpers\Tools;
 use App\Services\User;
 use PHPMailer\PHPMailer\PHPMailer;
 
@@ -21,7 +22,7 @@ class Mail {
     public function send()
     {
         try {
-            $this->phpmailer->send();
+            $this->phpMailer->send();
         } catch (\Exception $e) {
             throw new ExceptionMail($e);
         }
@@ -29,25 +30,26 @@ class Mail {
 
     private function loadConfigs()
     {
-        $this->phpmailer->isSMTP();
-        $this->phpmailer->Host = MAIL_HOST;
-        $this->phpmailer->SMTPAuth   = true; 
-        $this->phpmailer->Port = MAIL_PORT;
-        $this->phpmailer->Username = MAIL_USERNAME;
-        $this->phpmailer->Password = MAIL_PASSWORD;
-        $this->phpmailer->setFrom(MAIL_FROM_ADDRESS, MAIL_FROM_NAME);
+        $this->phpMailer->isSMTP();
+        $this->phpMailer->Host = MAIL_HOST;
+        $this->phpMailer->SMTPAuth   = true; 
+        $this->phpMailer->Port = MAIL_PORT;
+        $this->phpMailer->Username = MAIL_USERNAME;
+        $this->phpMailer->Password = MAIL_PASSWORD;
+        $this->phpMailer->setFrom(MAIL_FROM_ADDRESS, MAIL_FROM_NAME);
     }
 
     public function reciever(User $user)
     {
-        // $user->getEmail(); $user->getName();
-        $this->phpmailer->addAddress('parham.minou@gmail.com', 'parham');
+        $this->phpMailer->addAddress($user->getEmail(), $user->getName());
         return $this;
     }
 
-    public function view($htmFilePath, $imagesPath="")
+    public function view($htmFilePath, $vars, $replace)
     {
-        $this->phpMailer->msgHTML(file_get_contents($htmFilePath));
+        // $this->phpMailer->msgHTML(file_get_contents($htmFilePath));
+        $message = str_replace($vars, $replace, file_get_contents($htmFilePath));
+        $this->phpMailer->msgHTML($message);
         return $this;
     }
 
@@ -59,7 +61,7 @@ class Mail {
 
     
 
-    // it is also possible to add more stuff from PHPMailer to the project.
+    // it is also possible to add more stuff from phpMailer to the project.
     // but i wanted to keep it simple;
 
     public function subject($sub)
@@ -71,7 +73,7 @@ class Mail {
     public function encryption()
     {
         if (MAIL_PORT == 465 || MAIL_PORT == 587) {
-            MAIL_PORT == 465? $this->phpMailer->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS: PHPMailer::ENCRYPTION_STARTTLS;
+            MAIL_PORT == 465? $this->phpMailer->SMTPSecure = phpMailer::ENCRYPTION_SMTPS: phpMailer::ENCRYPTION_STARTTLS;
         }
         return $this;
     }

@@ -4,6 +4,7 @@ namespace App\Controllers\Site;
 
 use App\Services\User;
 use App\Controllers\Refrence\SiteRefrenceController;
+use App\Events\PasswordChange;
 use App\Helpers\Input;
 use App\Helpers\Tools;
 
@@ -18,6 +19,9 @@ class UserController extends SiteRefrenceController {
     }
 
     public function getUsers() {
+        $forgotPassEvent = new PasswordChange(new User, ['email' => 'parham.minou@gmail.com']);
+        $forgotPassEvent->dispatch();
+        die();
         // we can also change the format of log file
         self::$controllerLog->info('getting all users');
         $users = json_decode($this->model->getAll(), true);

@@ -16,7 +16,7 @@ define('PASSWORD', '');
 //---mail---//
 define('MAIL_MAILER', "smtp");
 define('MAIL_HOST', "smtp.mailtrap.io");
-define('MAIL_PORT', 2525);
+define('MAIL_PORT', 25);
 define('MAIL_USERNAME', "71c82a6e3b0ef2");
 define('MAIL_PASSWORD', "397c00c8664212");
 define('MAIL_ENCRYPTION', null);

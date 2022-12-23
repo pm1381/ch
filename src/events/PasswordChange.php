@@ -10,7 +10,6 @@ class PasswordChange {
 
     private $userService;
     
-
     public function __construct(User $userService, $dataArray)
     {
         $userService->setEmail($dataArray['email']);

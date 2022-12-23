@@ -30,6 +30,11 @@ class Tools
         return str_replace("/", "\\", $string);
     }
 
+    public static function createCode()
+    {
+        return rand(10000, 100000);
+    }
+
     public static function getIp()
     {
         $ipaddress = '';

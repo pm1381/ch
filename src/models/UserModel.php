@@ -3,6 +3,7 @@ namespace App\Models;
 
 use App\Classes\Date;
 use App\Classes\Redis;
+use App\Helpers\Tools;
 use App\Services\User as ClassesUser;
 use Illuminate\Database\Eloquent\Model;
 
@@ -59,15 +60,19 @@ class UserModel extends BaseModel{
         return UserModel::where('id', $id)->update($data);
     }
 
+    public function updatePassword(ClassesUser $user, $newPass)
+    {
+        return UserModel::where('email', $user->getEmail())->where('remember_token', '=', $user->getRemeberToken())->update(['updated_at' => Date::now() , 'password' => $newPass]);        
+    }
+
     public function updateToken(ClassesUser $user)
     {
-        return UserModel::where('id', $user->getId())->update(['token' => $user->getToken()]);
+        return UserModel::where('id', $user->getId())->update(['updated_at' => Date::now() , 'token' => $user->getToken()]);
     }
 
     public function updateRememberToken(ClassesUser $user)
     {
-        
-        return UserModel::where('email', '=', $user->getEmail())->update(['remember_token' => 1]);
+        return UserModel::where('email', '=', $user->getEmail())->update(['updated_at' => Date::now(), 'remember_token' => $user->getRemeberToken()]);
     }
 
     public function insertUser(ClassesUser $user) {
