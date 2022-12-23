@@ -4,6 +4,7 @@ namespace App\Controllers\Site\Auth;
 
 use App\Classes\Mail;
 use App\Controllers\Refrence\SiteRefrenceController;
+use App\Events\PasswordChange;
 use App\Helpers\Input;
 use App\Helpers\Tools;
 use App\Models\UserModel;
@@ -23,12 +24,8 @@ class ForgotPasswordController extends SiteRefrenceController {
         ]);
 
         if ($validateResult['error'] == false) {
-            $userService = new User();
-            $userService->setEmail($dataArray['email']);
-            $userModel = new UserModel();
-            $userModel->updateRememberToken($userService);
-            $mail = new Mail();
-            $mail->reciever($userService)->subject('forgot password email')->view(SITE_VIEW . "mail/mail.php", PUBLIC_FOLDER)->send();
+            $forgotPassEvent = new PasswordChange(new User, $dataArray);
+            $forgotPassEvent->dispatch();
         } else {
             Tools::setStatus(400, 'email format is wrong');
         }
