@@ -3,7 +3,7 @@
 namespace App\Events;
 
 use App\Classes\Dispatchable;
-use App\Services\User;
+use App\Entities\User;
 
 class PasswordChange {
     use Dispatchable;

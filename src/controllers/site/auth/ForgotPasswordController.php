@@ -3,7 +3,7 @@
 namespace App\Controllers\Site\Auth;
 
 use App\Helpers\Input;
-use App\Services\User;
+use App\Entities\User;
 use App\Classes\Response;
 use App\Events\PasswordChange;
 use App\Controllers\Refrence\SiteRefrenceController;

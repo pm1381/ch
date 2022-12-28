@@ -3,7 +3,7 @@ namespace App\Classes;
 
 use App\Exceptions\ExceptionMail;
 use App\Helpers\Tools;
-use App\Services\User;
+use App\Entities\User;
 use PHPMailer\PHPMailer\PHPMailer;
 
 class Mail {

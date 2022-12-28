@@ -1,5 +1,5 @@
 <?php
-namespace App\Services;
+namespace App\Entities;
 
 use App\Classes\Gate;
 use App\Models\UserModel;

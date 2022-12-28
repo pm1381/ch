@@ -4,7 +4,7 @@ namespace App\Controllers\Site\Auth;
 
 use App\Helpers\Input;
 use App\Helpers\Tools;
-use App\Services\User;
+use App\Entities\User;
 use App\Classes\Session;
 use App\Interfaces\Auth;
 use App\Classes\Response;

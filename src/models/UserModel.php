@@ -3,7 +3,7 @@ namespace App\Models;
 
 use App\Classes\Date;
 use App\Classes\Redis;
-use App\Services\User as ClassesUser;
+use App\Entities\User as ClassesUser;
 use Illuminate\Database\Eloquent\Model;
 
 class UserModel extends BaseModel{

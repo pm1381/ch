@@ -2,7 +2,7 @@
 
 namespace App\Controllers\MiddleWares\Site;
 
-use App\Services\User;
+use App\Entities\User;
 use App\Controllers\MiddleWares\Refrence\GeneralMiddleWare;
 use App\Exceptions\Exception404;
 use App\Helpers\Tools;

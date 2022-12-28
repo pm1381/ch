@@ -5,7 +5,7 @@ namespace App\Controllers\Refrence;
 use Monolog\Logger;
 use ReflectionClass;
 use App\Classes\Gate;
-use App\Services\User;
+use App\Entities\User;
 use App\Helpers\Tools;
 use App\Exceptions\Exception403;
 use Monolog\Handler\StreamHandler;

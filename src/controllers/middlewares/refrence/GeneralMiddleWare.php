@@ -2,7 +2,7 @@
 
 namespace App\Controllers\MiddleWares\Refrence;
 
-use App\Services\User;
+use App\Entities\User;
 
 class GeneralMiddleWare {
     public function login()

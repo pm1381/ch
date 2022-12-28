@@ -3,8 +3,8 @@
 namespace App\Controllers\Site;
 
 use App\Classes\Gate;
-use App\Services\Post;
-use App\Services\User;
+use App\Entities\Post;
+use App\Entities\User;
 use App\Controllers\Refrence\SiteRefrenceController;
 use App\Models\PostModel;
 

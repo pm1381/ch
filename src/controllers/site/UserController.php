@@ -3,7 +3,7 @@
 namespace App\Controllers\Site;
 
 use App\Helpers\Input;
-use App\Services\User;
+use App\Entities\User;
 use App\Classes\Response;
 use App\Controllers\Refrence\SiteRefrenceController;
 
