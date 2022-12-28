@@ -13,29 +13,6 @@ use App\Controllers\Refrence\SiteRefrenceController;
 use App\Models\LoginAttemptModel;
 
 class LoginController extends SiteRefrenceController implements Auth {    
-    public function checkLogin($data)
-    {
-        $user = new User();
-        $user->setEmail($data['email']);
-        $user->setPassword($data['password']);
-
-        $this->model = new UserModel();
-        $result = $this->model->loginCheck($user);
-
-        if (count($result) > 0) {
-            $user->setId($result[0]->id);
-            if (array_key_exists('rememberMe', $data) && $data['rememberMe']) {
-                $token = Tools::createUniqueToken($this->model);
-                $user->setToken($token);
-                $this->model->updateToken($user);
-                $session = new Session();
-                $session->set('userId', $token);
-            }
-            return true;
-        }
-        return false;
-    }
-
     public function showLoginForm()
     {
         // returning related view
@@ -52,19 +29,31 @@ class LoginController extends SiteRefrenceController implements Auth {
             ]);
 
             if ($validateResult['error'] == false) {
-                if ($this->checkLogin($dataArray)) {
-                    Tools::setStatus(200, 'logged in');
-                    Tools::redirect($this->redirectTo, 301);
-                } else {
-                    $this->addLoginAttempt();
-                    $errors[] = 'user does not exist';
+                $user = new User();
+                $user->setEmail($dataArray['email']);
+                $user->setPassword($dataArray['password']);
+                $this->model = new UserModel();
+                $result = $this->model->loginCheck($user);
+                
+                if (count($result) > 0) {
+                    $user->setId($result[0]->id);
+                    if (array_key_exists('rememberMe', $dataArray) && $dataArray['rememberMe']) {
+                        $token = Tools::createUniqueToken($this->model);
+                        $user->setToken($token);
+                        $this->model->updateToken($user);
+                        $session = new Session();
+                        $session->set('userId', $token);
+                    }
+                    return Tools::setStatus(200, 'logged in');
                 }
-            } else 
-                $errors = $validateResult['grabResult'];
-        } else
-            $errors[] = 'too many attempts';
-        
-        Tools::setStatus(400, $errors);
+
+                $this->addLoginAttempt();
+                return Tools::setStatus(400, 'user does not exist');
+            }
+            $errors = $validateResult['grabResult'];
+            return Tools::setStatus(400, $errors);
+        }
+        return Tools::setStatus(400, 'too many attempts');        
         //MUST back to registration form view to see errors
     }
 

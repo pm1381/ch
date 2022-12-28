@@ -59,7 +59,7 @@ class Tools
     {
         do {
             $token = Tools::createSalt();
-            $result = $model->getByToken($token);
+            $result = $model->getByFieldName('token', $token);
             $cnt = count($result);
         } while ($cnt > 0);
         return $token;

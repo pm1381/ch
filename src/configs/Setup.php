@@ -1,4 +1,7 @@
 <?php
+
+use App\Configs\Application;
+
 define('HOST_NAME', 'localhost');
 define('DOMAIN', "");
 define('DRIVER', "mysql");
@@ -46,3 +49,6 @@ define('STORAGE', BASE . "\\" . 'storage' . DIRECTORY_SEPARATOR);
 
 // and adding all files from library floder
 require LIBRARY . 'Function.php';
+
+$application = new Application();
+$application->run();

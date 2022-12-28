@@ -88,7 +88,7 @@ class User {
         if ($session->exist('userId')) {
             $token = $session->get('userId');
             $userModel = new UserModel();
-            $result = $userModel->getByToken($token);
+            $result = $userModel->getByFieldName('token', $token);
             if (count($result)) {
                 $data['login'] = true;
                 $data['user'] = $result[0];

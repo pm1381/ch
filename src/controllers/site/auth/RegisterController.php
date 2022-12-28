@@ -11,24 +11,6 @@ use App\Interfaces\Auth;
 use App\Models\UserModel;
 
 class RegisterController extends SiteRefrenceController implements Auth {
-    public function create($data)
-    {
-        $user = new User();
-        $user->setName($data['name']);
-        $user->setEmail($data['email']);
-        $user->setPassword($data['password']);
-
-        $this->model = new UserModel();
-        $token = Tools::createUniqueToken($this->model);
-        $user->setToken($token);
-        if ($this->model->insertUser($user)) {
-            $session = new Session();
-            $session->set('userId', $token);
-            return true;
-        }
-        return false;
-    }
-
     public function showRegistrationForm()
     {
         // this one must return a page (only)
@@ -45,15 +27,19 @@ class RegisterController extends SiteRefrenceController implements Auth {
 
         $erros = $validateResult['grabResult'];
         if ($validateResult['error'] == false) {
-            if ($this->create($dataArray)) {
-                Tools::setStatus(200, 'registered');
-                Tools::redirect($this->redirectTo, 301);
-            } else
-                $erros[] = 'use login page';
+            $userModel = new UserModel();
+            $userEntity = new User();
+            if ($userModel->createUser($userEntity, $dataArray)) {
+                $token = Tools::createUniqueToken($userModel);
+                $userEntity->setToken($token);
+                $userModel->updateToken($userEntity);
+                $session = new Session();
+                $session->set('userId', $token);
+                return Tools::setStatus(200, 'registered');
+            }
+            return Tools::setStatus(400, 'use login page');
         }
-        if (count($erros)) {
-            Tools::setStatus(400, $erros);
-        }
+        return Tools::setStatus(400, $erros);
         //MUST back to registration form view to see errors
     }
 }

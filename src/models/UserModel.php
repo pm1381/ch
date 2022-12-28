@@ -3,13 +3,12 @@ namespace App\Models;
 
 use App\Classes\Date;
 use App\Classes\Redis;
-use App\Helpers\Tools;
 use App\Services\User as ClassesUser;
 use Illuminate\Database\Eloquent\Model;
 
 class UserModel extends BaseModel{
 
-    protected $fillable = ['email', 'name'];
+    protected $fillable = ['email', 'name', 'password', 'updated_at', 'created_at', 'token'];
 
     public function __construct(){
         $this->table = 'user';
@@ -38,15 +37,18 @@ class UserModel extends BaseModel{
     //mutator
     public function setNameAttribute($value)
     {
-        $this->attributes['name'] = strtoupper($value); ////mutator does not work with insert. only with create
+        //mutator does not work with insert. only with create
+        $this->attributes['name'] = strtoupper($value);
     }
 
     public function getById($id) {
+        // i wont erase this one . because it is really handy
         return UserModel::where('id', '=', $id)->select('email', 'name')->get();
     }
 
-    public function getByToken($token){
-        return UserModel::where('token', '=', $token)->take(1)->get();
+    public function getByFieldName($fieldName, $value)
+    {
+        return UserModel::where($fieldName, '=', $value)->get();
     }
 
     public function updateById(ClassesUser $user, $id) {
@@ -76,7 +78,8 @@ class UserModel extends BaseModel{
     }
 
     public function insertUser(ClassesUser $user) {
-        $hashedPassword = $user->hashPassword(); //first check if user logged in before;
+        // first check if user exist before;
+        $hashedPassword = $user->hashPassword();
         if(count($this->loginCheck($user)) > 0) {
             return false;
         }
@@ -88,7 +91,7 @@ class UserModel extends BaseModel{
             'created_at' => Date::now(),
             'token' => $user->getToken()
         ]; 
-        return UserModel::insert($data);
+        return UserModel::create($data);
     }
 
     public function loginCheck(ClassesUser $user) {
@@ -101,5 +104,19 @@ class UserModel extends BaseModel{
                 return $res;
         }
         return [];
+    }
+
+    public function createUser(ClassesUser &$user, $data)
+    {
+        $user->setName($data['name']);
+        $user->setEmail($data['email']);
+        $user->setPassword($data['password']);
+
+        $createdUser = $this->insertUser($user);
+        if ($createdUser->id() > 0) {
+            $user->setId($createdUser->id());
+            return true;
+        }
+        return false;
     }
 }

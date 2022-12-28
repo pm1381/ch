@@ -33,10 +33,10 @@ class PostModel extends BaseModel{
             $data['user'] = $post->getUser();
         }
 
-        return PostModel::where('userId', $id)->update($data);
+        return PostModel::where('id', $id)->update($data);
     }
 
-    public function insertUser(ClassesPost $post) {
+    public function insertPost(ClassesPost $post) {
         $data = [
             'title' => $post->getTitle(),
             'description'  => $post->getDescription(),
