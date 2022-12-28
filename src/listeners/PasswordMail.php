@@ -3,9 +3,10 @@
 namespace App\Listeners;
 
 use App\Classes\Mail;
-use App\Events\PasswordChange;
 use App\Helpers\Tools;
+use App\Classes\Response;
 use App\Models\UserModel;
+use App\Events\PasswordChange;
 
 class PasswordMail {
     public function __construct()
@@ -27,8 +28,8 @@ class PasswordMail {
         $update1 = $userModel->updateRememberToken($event->getUserService());
         $update2 = $userModel->updatePassword($event->getUserService(), $hashed);
         if ($update1 && $update2) {
-            Tools::setStatus(200, "send succesfully");
+            Response::setStatus(200, "send succesfully");
         } else 
-            Tools::setStatus(200, "send unsuccesfully");
+            Response::setStatus(200, "send unsuccesfully");
     }
 }

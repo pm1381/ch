@@ -2,13 +2,11 @@
 
 namespace App\Controllers\Site\Auth;
 
-use App\Classes\Mail;
-use App\Controllers\Refrence\SiteRefrenceController;
-use App\Events\PasswordChange;
 use App\Helpers\Input;
-use App\Helpers\Tools;
-use App\Models\UserModel;
 use App\Services\User;
+use App\Classes\Response;
+use App\Events\PasswordChange;
+use App\Controllers\Refrence\SiteRefrenceController;
 
 class ForgotPasswordController extends SiteRefrenceController {    
     public function showLinkRequestForm()
@@ -27,7 +25,7 @@ class ForgotPasswordController extends SiteRefrenceController {
             $forgotPassEvent = new PasswordChange(new User, $dataArray);
             $forgotPassEvent->dispatch();
         } else {
-            Tools::setStatus(400, 'email format is wrong');
+            Response::setStatus(400, 'email format is wrong');
         }
     }
 

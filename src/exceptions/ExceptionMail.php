@@ -2,8 +2,9 @@
 
 namespace App\Exceptions;
 
-use App\Helpers\Tools;
 use Exception;
+use App\Helpers\Tools;
+use App\Classes\Response;
 
 class ExceptionMail extends Exception {
     
@@ -19,6 +20,6 @@ class ExceptionMail extends Exception {
     public function render(array $request, $error)
     {
         $message = 'error is happend while trying to send email . error = ' . $error->getMessage();
-        Tools::setStatus(400, $message);
+        Response::setStatus(400, $message);
     }
 }

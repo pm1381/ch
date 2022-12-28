@@ -127,19 +127,6 @@ class Tools
         }
     }
 
-    public static function setStatus($code, $text, $data = [])
-    {
-        header('Content-Type: application/json');
-        // header('Content-Type: application/x-www-form-urlencoded');
-        http_response_code($code);
-        $jsonArray = array();
-        $jsonArray['status'] = $code;
-        $jsonArray['data'] = $data;
-        $jsonArray['status_text'] = $text;
-        echo json_encode($jsonArray);
-        exit();
-    }
-
     public static function getUrl()
     {
         return ORIGIN . parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);

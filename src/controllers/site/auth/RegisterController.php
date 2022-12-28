@@ -2,13 +2,14 @@
 
 namespace App\Controllers\Site\Auth;
 
-use App\Classes\Session;
-use App\Services\User;
-use App\Controllers\Refrence\SiteRefrenceController;
 use App\Helpers\Input;
 use App\Helpers\Tools;
+use App\Services\User;
+use App\Classes\Session;
 use App\Interfaces\Auth;
+use App\Classes\Response;
 use App\Models\UserModel;
+use App\Controllers\Refrence\SiteRefrenceController;
 
 class RegisterController extends SiteRefrenceController implements Auth {
     public function showRegistrationForm()
@@ -35,11 +36,11 @@ class RegisterController extends SiteRefrenceController implements Auth {
                 $userModel->updateToken($userEntity);
                 $session = new Session();
                 $session->set('userId', $token);
-                return Tools::setStatus(200, 'registered');
+                return Response::setStatus(200, 'registered');
             }
-            return Tools::setStatus(400, 'use login page');
+            return Response::setStatus(400, 'use login page');
         }
-        return Tools::setStatus(400, $erros);
+        return Response::setStatus(400, $erros);
         //MUST back to registration form view to see errors
     }
 }

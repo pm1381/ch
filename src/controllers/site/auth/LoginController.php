@@ -2,15 +2,15 @@
 
 namespace App\Controllers\Site\Auth;
 
-use App\Classes\Date;
-use App\Services\User;
 use App\Helpers\Input;
 use App\Helpers\Tools;
+use App\Services\User;
 use App\Classes\Session;
 use App\Interfaces\Auth;
+use App\Classes\Response;
 use App\Models\UserModel;
-use App\Controllers\Refrence\SiteRefrenceController;
 use App\Models\LoginAttemptModel;
+use App\Controllers\Refrence\SiteRefrenceController;
 
 class LoginController extends SiteRefrenceController implements Auth {    
     public function showLoginForm()
@@ -44,16 +44,16 @@ class LoginController extends SiteRefrenceController implements Auth {
                         $session = new Session();
                         $session->set('userId', $token);
                     }
-                    return Tools::setStatus(200, 'logged in');
+                    return Response::setStatus(200, 'logged in');
                 }
 
                 $this->addLoginAttempt();
-                return Tools::setStatus(400, 'user does not exist');
+                return Response::setStatus(400, 'user does not exist');
             }
             $errors = $validateResult['grabResult'];
-            return Tools::setStatus(400, $errors);
+            return Response::setStatus(400, $errors);
         }
-        return Tools::setStatus(400, 'too many attempts');        
+        return Response::setStatus(400, 'too many attempts');        
         //MUST back to registration form view to see errors
     }
 

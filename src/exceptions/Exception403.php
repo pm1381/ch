@@ -2,8 +2,9 @@
 
 namespace App\Exceptions;
 
-use App\Helpers\Tools;
 use Exception;
+use App\Helpers\Tools;
+use App\Classes\Response;
 
 class Exception403 extends Exception {
     
@@ -19,6 +20,6 @@ class Exception403 extends Exception {
     public function render(array $request, $error)
     {
         // returning 404 view
-        Tools::setStatus(403, '403 unauthorized move');
+        Response::setStatus(403, '403 unauthorized move');
     }
 }
