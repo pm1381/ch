@@ -15,46 +15,44 @@ use App\Controllers\Refrence\SiteRefrenceController;
 class LoginController extends SiteRefrenceController implements Auth {    
     public function showLoginForm()
     {
-        // returning related view
+        Tools::render('site\auth\showLoginForm');
     }
 
     public function login()
     {
-        $errors = [];
-        if ($this->loginAttempts()) {
-            $dataArray = Input::getDataForm();
-            $validateResult = $this->AuthValidation($dataArray, [
-                'email' => 'required|email',
-                'password' => 'required|min:6'
-            ]);
+        $dataArray = Input::getDataForm();
+        $validateResult = $this->AuthValidation($dataArray, [
+            'email' => 'required|email',
+            'password' => 'required|min:6'
+        ]);
 
-            if ($validateResult['error'] == false) {
-                $user = new User();
-                $user->setEmail($dataArray['email']);
-                $user->setPassword($dataArray['password']);
-                $this->model = new UserModel();
-                $result = $this->model->loginCheck($user);
-                
-                if (count($result) > 0) {
-                    $user->setId($result[0]->id);
-                    if (array_key_exists('rememberMe', $dataArray) && $dataArray['rememberMe']) {
-                        $token = Tools::createUniqueToken($this->model);
-                        $user->setToken($token);
-                        $this->model->updateToken($user);
-                        $session = new Session();
-                        $session->set('userId', $token);
-                    }
-                    return Response::setStatus(200, 'logged in');
-                }
-
-                $this->addLoginAttempt();
-                return Response::setStatus(400, 'user does not exist');
+        if ($validateResult['error'] == false) {
+            $user = new User();
+            $user->setEmail($dataArray['email']);
+            $user->setPassword($dataArray['password']);
+            $this->model = new UserModel();
+            $result = $this->model->loginCheck($user);
+            
+            if (count($result) > 0) {
+                $user->setId($result[0]->id);
+                $token = Tools::createUniqueToken($this->model);
+                $user->setToken($token);
+                $this->model->updateToken($user);
+                $session = new Session();
+                $session->set('userId', $token);
+                return Response::setStatus(200, 'logged in');
+            } else {
+                $errors[] = 'user does not exist';
             }
-            $errors = $validateResult['grabResult'];
-            return Response::setStatus(400, $errors);
+            $this->addLoginAttempt();
+        } else {
+            $errors[] = array_values($validateResult['firstError'])[0];
         }
-        return Response::setStatus(400, 'too many attempts');        
-        //MUST back to registration form view to see errors
+        
+        $session = new Session();
+        $session->setFlash('error', $errors[0]);
+        // return Response::setStatus(400, $errors);
+        Tools::redirect(ORIGIN . '/login/');       
     }
 
     public function logout()
@@ -62,16 +60,6 @@ class LoginController extends SiteRefrenceController implements Auth {
         $session = new Session();
         $session->delete('userId');
         Tools::redirect($this->redirectTo, 301);
-    }
-
-    private function loginAttempts()
-    {
-        // check wrong number of neseccary attempts;
-        $attempModel = new LoginAttemptModel();
-        $count = $attempModel->howManyAttempts(Tools::getIp());
-        if  ($count > 3)
-            return false;
-        return true;
     }
 
     private function addLoginAttempt()

@@ -77,7 +77,7 @@ class Tools
 
     public static function render($template, $found = [])
     {
-        $file = TEMPLATE . $template . '.php';
+        $file = VIEW . $template . '.php';
         if (file_exists($file)) {
             $data = json_decode(json_encode($found, JSON_INVALID_UTF8_IGNORE));
             require_once $file;

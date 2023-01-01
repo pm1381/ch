@@ -22,12 +22,14 @@ class AuthRouter {
         $this->authMiddleWare();
         $this->authSite();
         $this->authAdmin();
+
+        // print_f($this->router);
     }
 
     private function authSite()
     {
         if (! array_key_exists('login', $this->options)) {
-            $this->router->get('/login/', 'site\auth\LoginController@showLoginForm', 'login');
+            $this->router->get('/login/', 'site\auth\LoginController@showLoginForm');
             $this->router->post('/login/', 'site\auth\LoginController@login');
             $this->router->post('/logout/', 'site\auth\LoginController@logout', 'logout');
         }
@@ -48,14 +50,14 @@ class AuthRouter {
         }
 
         if (! array_key_exists('register', $this->options)) {
-            $this->router->get('/register/', 'site\auth\RegisterController@showRegistrationForm', 'register');
+            $this->router->get('/register/', 'site\auth\RegisterController@showRegistrationForm');
             $this->router->post('/register/', 'site\auth\RegisterController@register');
         }
-        // print_f($this->router);
     }
 
     private function authMiddleWare(){
-        $this->router->before('post', '/login/', 'middlewares\site\LoginMiddleWare@ipCheck');
+        $this->router->before('POST', '/login/', 'middlewares\site\LoginMiddleWare@ipCheck');
+        $this->router->before('GET', '/login/', 'middlewares\site\LoginMiddleWare@loginAttempt');
     }
     private function authAdmin(){}
 }

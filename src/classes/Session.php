@@ -52,7 +52,7 @@ class Session
 
     public function getFlash($key, $default="")
     {
-        if (array_key_exists($key, $_SESSION['_flashData'])) {
+        if (array_key_exists('_flashData', $_SESSION) && array_key_exists($key, $_SESSION['_flashData'])) {
             $flashedData = $_SESSION['_flashData'][$key];
             unset($_SESSION['_flashData'][$key]);
         } else {

@@ -14,10 +14,10 @@ class Arrays
     public static function errorView()
     {
         return[
-            'required' => ':attribute الزامی است',
-            'email' => 'فیلد :attribute معتبر نمیباشد',
-            'min' => 'فیلد :attribute کمتر از حد مجاز است',
-            'same' => 'فیلد :attribute با مقدار اصلی خود شباهت ندارند'
+            'required' => ':attribute is required',
+            'email' => 'field :attribute is required',
+            'min' => 'field :attribute is less than required amount',
+            'same' => 'field :attribute is not the same'
         ];
     }
 

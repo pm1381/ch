@@ -30,13 +30,14 @@ class Validation {
         $validationResult['error'] = false;
         $validationResult['grabResult'] = [];
         if ($this->validData->fails()) {
-            $errors = Tools::translateErrors($this->validData->errors(), Arrays::fieldNameTranslations());
+            // $errors = Tools::translateErrors($this->validData->errors(), Arrays::fieldNameTranslations());
+            $errors = $this->validData->errors();
             $validationResult = [
                 'error' => true,
                 'grabResult' => $errors->all(),
                 'count' => $errors->count(),
                 'to array' => $errors->toArray(),
-                'first of each' => $errors->firstOfAll()
+                'firstError' => $errors->firstOfAll()
             ];
         }
         return $validationResult;

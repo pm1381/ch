@@ -91,7 +91,7 @@ class UserModel extends BaseModel{
             'created_at' => Date::now(),
             'token' => $user->getToken()
         ]; 
-        return UserModel::create($data);
+        return UserModel::insertGetId($data);
     }
 
     public function loginCheck(ClassesUser $user) {
@@ -113,8 +113,8 @@ class UserModel extends BaseModel{
         $user->setPassword($data['password']);
 
         $createdUser = $this->insertUser($user);
-        if ($createdUser->id() > 0) {
-            $user->setId($createdUser->id());
+        if ($createdUser > 0) {
+            $user->setId($createdUser);
             return true;
         }
         return false;
