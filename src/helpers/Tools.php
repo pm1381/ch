@@ -2,7 +2,9 @@
 
 namespace App\Helpers;
 
+use App\Classes\Response;
 use App\Classes\Session;
+use App\Exceptions\Exception404;
 use App\Models\UserModel;
 use Rakit\Validation\ErrorBag;
 
@@ -71,6 +73,17 @@ class Tools
         $ignoreClasses[] = '..';
         $files = array_values(array_diff(scandir($path), $ignoreClasses));
         return $files;
+    }
+
+    public static function render($template, $found = [])
+    {
+        $file = TEMPLATE . $template . '.php';
+        if (file_exists($file)) {
+            $data = json_decode(json_encode($found, JSON_INVALID_UTF8_IGNORE));
+            require_once $file;
+        } else {
+            throw new Exception404('page not found');
+        }
     }
 
     public static function translateErrors(ErrorBag $allErrors, $translation)
