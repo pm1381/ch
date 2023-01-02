@@ -19,7 +19,7 @@ class User {
      */ 
     public function getName()
     {
-        return $this->name;
+        return htmlentities($this->name);
     }
 
     /**
@@ -38,7 +38,7 @@ class User {
      */ 
     public function getEmail()
     {
-        return $this->email;
+        return  htmlentities($this->email);
     }
 
     /**
@@ -57,7 +57,7 @@ class User {
      */ 
     public function getPassword()
     {
-        return $this->password;
+        return htmlentities($this->password);
     }
 
     /**
