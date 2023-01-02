@@ -22,6 +22,7 @@ class PostPolicy
             print_f("user can edit/create this post");
             return true;
         }
+        print_f("do not have permission to update");
         return false;
     }
 

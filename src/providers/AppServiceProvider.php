@@ -11,8 +11,6 @@ class AppServiceProvider extends ServiceProvider implements Provider {
         $session = new Session();
         $session->start();
 
-        $handleAuth = new HandleAuthorization();
-        $handleAuth->registerPolicies();
     }
 
     public function boot()

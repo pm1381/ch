@@ -24,7 +24,6 @@ class BaseHandler {
     public function report($error)
     {
         if (! $this->shoulntReport($error)) {
-            // print_f($error, true);
             if (! $this->manageReport($error)) {
                 $baseLogger = new Logger('base');
                 $date = Date::getCurrentDate();
