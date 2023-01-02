@@ -3,10 +3,13 @@
 use App\Configs\Application;
 
 define('HOST_NAME', 'localhost');
-define('DOMAIN', "");
+define('DOMAIN', "http://localhost/");
 define('DRIVER', "mysql");
 define('BASE_URI', 'http://localhost/project/ch/home');
 define('ORIGIN', 'http://localhost/project/ch');
+define('JWT_SECRET_KEY', 'kiram tu jomhuri-eslami');
+define('JWT_ALGORITHM', 'HS512');
+define('EXPIRE_DATE', '+6 minutes');
 
 //---mongo database---//
 define('MONGO_DB_NAME', '');
