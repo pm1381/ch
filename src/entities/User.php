@@ -1,9 +1,12 @@
 <?php
 namespace App\Entities;
 
+use App\Classes\Cookie;
 use App\Classes\Gate;
+use App\Classes\Jwt;
+use App\Classes\Session;
 use App\Models\UserModel;
-use Ghostff\Session\Session;
+use DateTimeImmutable;
 
 class User {
     private string $email = '';
@@ -85,13 +88,31 @@ class User {
     {
         $data['login'] = false;
         $session = new Session();
-        if ($session->exist('userId')) {
+        if ($session->exists('userId')) {
             $token = $session->get('userId');
             $userModel = new UserModel();
             $result = $userModel->getByFieldName('token', $token);
             if (count($result)) {
                 $data['login'] = true;
                 $data['user'] = $result[0];
+            }
+        }
+        return $data;
+    }
+
+    public function isLoginJwt()
+    {
+        $data['login'] = false;
+        $cookie = new Cookie();
+        $jwtString = $cookie->get('jwtToken');
+        if ($jwtString != null) {
+            $now = new DateTimeImmutable();
+            $jwt = new Jwt();
+            $result = $jwt->get($jwtString);
+            
+            if ($result->iss == DOMAIN && $result->nbf < $now->getTimestamp() && $result->exp > $now->getTimestamp()) {
+                $data['login'] = true;
+                $data['user'] = $result->data;
             }
         }
         return $data;

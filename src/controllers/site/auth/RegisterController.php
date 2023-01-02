@@ -2,6 +2,8 @@
 
 namespace App\Controllers\Site\Auth;
 
+use App\Classes\Cookie;
+use App\Classes\Jwt;
 use App\Helpers\Input;
 use App\Helpers\Tools;
 use App\Entities\User;
@@ -35,9 +37,14 @@ class RegisterController extends SiteRefrenceController implements Auth {
                 $userModel->updateToken($userEntity);
                 $session = new Session();
                 $session->set('userId', $token);
+
+                $jwt = new Jwt();
+                $jwtData = $jwt->create(['email' => $userEntity->getEmail(), 'userId' => $token]);
+                $cookie = new Cookie();
+                $cookie->setName('jwtToken')->setContent($jwtData)->setExpire(EXPIRE_DATE)->add();
                 return Response::setStatus(200, 'registered');
             }
-            $errors[] = 'use login page';
+            $errors[] = 'email exist before. try new';
         } else {
             $errors[] = array_values($validateResult['firstError'])[0];
         }

@@ -1,5 +1,5 @@
 <?php
-namespace Classes;
+namespace App\Classes;
 
 class Cookie 
 {
@@ -37,11 +37,11 @@ class Cookie
         setcookie($this->name, "", time()-3600, '/');
     }
 
-    public function get()
+    public function get($name)
     {
         $content = null;
-        if(isset($_COOKIE[$this->name])) {
-            $content = $_COOKIE[$this->name];
+        if(array_key_exists($name, $_COOKIE)) {
+            $content = $_COOKIE[$name];
         }
         return $content;
     }

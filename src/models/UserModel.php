@@ -98,12 +98,7 @@ class UserModel extends BaseModel{
         $email = $user->getEmail();
         $password = $user->getPassword(); // it is real password. not hashed
 
-        $res = UserModel::where('email', '=', $email)->get();
-        foreach ($res as $each) {
-            if ($user->checkPassword($password, $each->password))
-                return $res;
-        }
-        return [];
+        return UserModel::where('email', '=', $email)->get();
     }
 
     public function createUser(ClassesUser &$user, $data)

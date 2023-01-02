@@ -2,9 +2,7 @@
 
 namespace App\Classes;
 
-use App\Exceptions\ExceptionExistBefore;
-use App\Helpers\Tools;
-use App\Models\UserModel;
+use App\Entities\User;
 
 class Gate
 {

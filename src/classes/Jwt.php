@@ -4,6 +4,7 @@ namespace App\Classes;
 
 use DateTimeImmutable;
 use Firebase\JWT\JWT as FIREBASEJWT;
+use Firebase\JWT\Key;
 
 class Jwt
 {
@@ -16,6 +17,7 @@ class Jwt
 
     public function __construct()
     {
+        $this->time = new DateTimeImmutable();
         $this->setUniqueToken(base64_encode(random_bytes(16)));
     }
 
@@ -111,7 +113,7 @@ class Jwt
 
     public function get($string)
     {
-        return FIREBASEJWT::decode($string, $this->secretKey, [$this->signAlgorithm]);
+        return FIREBASEJWT::decode($string, new Key($this->secretKey, $this->signAlgorithm));
     }
 
     /**

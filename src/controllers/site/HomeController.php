@@ -33,6 +33,7 @@ class HomeController extends SiteRefrenceController {
         $post->setUser($result[0]['user']);
 
         // testing authorization
+        Gate::getAllGates();
         print_f(Gate::allows('post_update', $user, $post));
     }
 }

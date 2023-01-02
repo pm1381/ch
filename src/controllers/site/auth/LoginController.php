@@ -2,6 +2,8 @@
 
 namespace App\Controllers\Site\Auth;
 
+use App\Classes\Cookie;
+use App\Classes\Jwt;
 use App\Helpers\Input;
 use App\Helpers\Tools;
 use App\Entities\User;
@@ -40,6 +42,12 @@ class LoginController extends SiteRefrenceController implements Auth {
                 $this->model->updateToken($user);
                 $session = new Session();
                 $session->set('userId', $token);
+
+                $jwt = new Jwt();
+                $jwtData = $jwt->create(['email' => $user->getEmail(), 'userId' => $token]);
+                $cookie = new Cookie();
+                $cookie->setName('jwtToken')->setContent($jwtData)->setExpire(EXPIRE_DATE)->add();
+
                 return Response::setStatus(200, 'logged in');
             } else {
                 $errors[] = 'user does not exist';
