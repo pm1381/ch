@@ -31,7 +31,7 @@ use App\Classes\Session;
             <div class="form-group">
             <button type="submit" class="btn btn-primary btn-block"> login  </button>
             </div>
-            <p class="text-center"><a href="#" class="btn">Forgot password?</a></p>
+            <p class="text-center"><a href="<?php echo ORIGIN . '/password/reset/' ?>" class="btn">Forgot password?</a></p>
             </form>
         </article>
     </div>

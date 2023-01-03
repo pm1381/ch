@@ -32,6 +32,22 @@ class Tools
         return str_replace("/", "\\", $string);
     }
 
+    public static function checkArray($key, $array)
+    {
+        if (array_key_exists($key, $array)) {
+            return $array[$key];
+        }
+        return '';
+    }
+
+    public static function checkObject($object, $property)
+    {
+        if (property_exists($object, $property)) {
+            return $object->$property;
+        }
+        return '';
+    }
+
     public static function createCode()
     {
         return rand(10000, 100000);

@@ -10,7 +10,7 @@ use DateTimeImmutable;
 
 class User {
     private string $email = '';
-    private string $name = '';
+    public string $name = '';
     private string $password = '';
     private string $token = '';
     private int $admin = 1;
