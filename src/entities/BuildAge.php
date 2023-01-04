@@ -2,7 +2,7 @@
 namespace App\Entities;
 
 class BuildAge extends Entity {
-    private int $value;
+    private string $value;
 
     /**
      * Get the value of value

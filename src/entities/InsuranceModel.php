@@ -1,15 +1,15 @@
 <?php
 namespace App\Entities;
 
-class AgeRange extends Entity {
-    private string $value;
+class InsuranceModel extends Entity {
+    private string $name;
 
     /**
      * Get the value of value
      */ 
-    public function getValue()
+    public function getName()
     {
-        return $this->value;
+        return $this->name;
     }
 
     /**
@@ -17,9 +17,9 @@ class AgeRange extends Entity {
      *
      * @return  self
      */ 
-    public function setValue($value)
+    public function setName($value)
     {
-        $this->value = $value;
+        $this->name = $value;
         return $this;
     }
 }

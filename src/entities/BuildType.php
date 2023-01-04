@@ -1,7 +1,7 @@
 <?php
 namespace App\Entities;
 
-class AgeRange extends Entity {
+class BuildType extends Entity {
     private string $value;
 
     /**
