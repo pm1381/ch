@@ -8,13 +8,12 @@ use App\Classes\Session;
 use App\Models\UserModel;
 use DateTimeImmutable;
 
-class User {
+class User extends Entity {
     private string $email = '';
     public string $name = '';
     private string $password = '';
     private string $token = '';
     private int $admin = 1;
-    private int $id;
     private string $remeberToken = '';
     
     /**
@@ -169,25 +168,6 @@ class User {
     public function setAdmin($admin)
     {
         $this->admin = $admin;
-        return $this;
-    }
-
-    /**
-     * Get the value of id
-     */ 
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set the value of id
-     *
-     * @return  self
-     */ 
-    public function setId($id)
-    {
-        $this->id = $id;
         return $this;
     }
 
