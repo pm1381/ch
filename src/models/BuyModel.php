@@ -44,9 +44,9 @@ class BuyModel extends BaseModel implements modelInterface{
 
     public function saveOrUpdate($buy)
     {
-        $result = BuyModel::where('id', $buy->getId)->get();
+        $result = BuyModel::where('id', $buy->getId())->get();
         if (count($result)) {
-            return BuyModel::where('id', $buy->getId)->update(['user' => $buy->getUser(), 'price' => $buy->getPrice(), 'insurance' => $buy->getInsurance()]);
+            return BuyModel::where('id', $buy->getId())->update(['user' => $buy->getUser(), 'price' => $buy->getPrice(), 'insurance' => $buy->getInsurance()]);
         }
         $data = [
             'user' => $buy->getUser(),
