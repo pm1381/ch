@@ -46,11 +46,11 @@ class CityModel extends BaseModel implements modelInterface{
     {
         $result = CityModel::where('id', $city->getId())->get();
         if (count($result)) {
-            return CityModel::where('id', $city->getId())->update(['code' => $city->getCode(), 'name' => $city->getName(), 'province' => $city->getProvince()]);
+            return CityModel::where('id', $city->getId())->update(['code' => $city->getCode(), 'name' => $city->getName(), 'province' => $city->getProvince()->getId()]);
         }
         $data = [
             'code' => $city->getCode(),
-            'province' => $city->getProvince(),
+            'province' => $city->getProvince()->getId(),
             'name' => $city->getName()
         ];
         return CityModel::create($data);

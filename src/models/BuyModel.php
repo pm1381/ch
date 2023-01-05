@@ -46,11 +46,11 @@ class BuyModel extends BaseModel implements modelInterface{
     {
         $result = BuyModel::where('id', $buy->getId())->get();
         if (count($result)) {
-            return BuyModel::where('id', $buy->getId())->update(['user' => $buy->getUser(), 'price' => $buy->getPrice(), 'insurance' => $buy->getInsurance()]);
+            return BuyModel::where('id', $buy->getId())->update(['user' => $buy->getUser()->getId(), 'price' => $buy->getPrice(), 'insurance' => $buy->getInsurance()->getId()]);
         }
         $data = [
-            'user' => $buy->getUser(),
-            'insurance' => $buy->getInsurance(),
+            'user' => $buy->getUser()->getId(),
+            'insurance' => $buy->getInsurance()->getId(),
             'price' => $buy->getPrice()
         ];
         return BuyModel::create($data);
