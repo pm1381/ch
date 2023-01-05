@@ -47,6 +47,15 @@ class Arrays
         ];
     }
 
+    public function remindingPeriod()
+    {
+        return [
+            '1' => 'هر سه ماه',
+            '2' => 'هر شش ماه',
+            '3' => 'هر سال'
+        ];
+    }
+
     public static function errorView()
     {
         return[

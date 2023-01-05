@@ -6,7 +6,6 @@ class Insurance extends Entity {
     private int $discount;
     private InsuranceModel $model;
 
-
     /**
      * Get the value of model
      */ 
