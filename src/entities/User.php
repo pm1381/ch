@@ -6,16 +6,19 @@ use App\Classes\Gate;
 use DateTimeImmutable;
 use App\Classes\Cookie;
 use App\Classes\Session;
-use App\Entities\Entity;
 use App\Models\UserModel;
 
 class User extends Entity {
     private string $email = '';
+    private int $phoneNumber;
     public string $name = '';
     private string $password = '';
     private string $token = '';
     private int $admin = 1;
     private string $remeberToken = '';
+    private int $inviteRemain = 10;
+    private string $inviteCode;
+    private User $invitedFrom;
     
     /**
      * Get the value of name
@@ -188,6 +191,82 @@ class User extends Entity {
     public function setRemeberToken($remeberToken)
     {
         $this->remeberToken = $remeberToken;
+        return $this;
+    }
+
+    /**
+     * Get the value of phoneNumber
+     */ 
+    public function getPhoneNumber()
+    {
+        return $this->phoneNumber;
+    }
+
+    /**
+     * Set the value of phoneNumber
+     *
+     * @return  self
+     */ 
+    public function setPhoneNumber($phoneNumber)
+    {
+        $this->phoneNumber = $phoneNumber;
+        return $this;
+    }
+
+    /**
+     * Get the value of invitedFrom
+     */ 
+    public function getInvitedFrom()
+    {
+        return $this->invitedFrom;
+    }
+
+    /**
+     * Set the value of invitedFrom
+     *
+     * @return  self
+     */ 
+    public function setInvitedFrom($invitedFrom)
+    {
+        $this->invitedFrom = $invitedFrom;
+        return $this;
+    }
+
+    /**
+     * Get the value of inviteCode
+     */ 
+    public function getInviteCode()
+    {
+        return $this->inviteCode;
+    }
+
+    /**
+     * Set the value of inviteCode
+     *
+     * @return  self
+     */ 
+    public function setInviteCode($inviteCode)
+    {
+        $this->inviteCode = $inviteCode;
+        return $this;
+    }
+
+    /**
+     * Get the value of inviteRemain
+     */ 
+    public function getInviteRemain()
+    {
+        return $this->inviteRemain;
+    }
+
+    /**
+     * Set the value of inviteRemain
+     *
+     * @return  self
+     */ 
+    public function setInviteRemain($inviteRemain)
+    {
+        $this->inviteRemain = $inviteRemain;
         return $this;
     }
 }
