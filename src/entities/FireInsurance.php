@@ -3,7 +3,7 @@ namespace App\Entities;
 
 class FireInsurance extends PropertyInsurance {
     private string $name;
-    private int $fireId;
+    private Insurance $insurance;
 
     /**
      * Get the value of name
@@ -25,21 +25,21 @@ class FireInsurance extends PropertyInsurance {
     }
 
     /**
-     * Get the value of fireId
+     * Get the value of insurance
      */ 
-    public function getFireId()
+    public function getInsurance()
     {
-        return $this->fireId;
+        return $this->insurance;
     }
 
     /**
-     * Set the value of fireId
+     * Set the value of insurance
      *
      * @return  self
      */ 
-    public function setFireId($fireId)
+    public function setInsurance($insurance)
     {
-        $this->fireId = $fireId;
+        $this->insurance = $insurance;
         return $this;
     }
 }

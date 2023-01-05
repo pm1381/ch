@@ -1,7 +1,7 @@
 <?php
 namespace App\Entities;
 
-class HealthInsurance extends Insurance {
+class HealthInsurance extends Entity {
     private int $personCount;
     private string $description;
     private string $name;
@@ -11,7 +11,7 @@ class HealthInsurance extends Insurance {
     private int $pregnancyTime;
     private int $type; // is it for single or for family
     private int $stars = 1; // 1 to 5
-    private int $healthId; // property insurance table id
+    private Insurance $insurance;
 
     /**
      * Get the value of stars
@@ -185,21 +185,22 @@ class HealthInsurance extends Insurance {
     }
 
     /**
-     * Get the value of healthId
+     * Get the value of insurance
      */ 
-    public function getHealthId()
+    public function getInsurance()
     {
-        return $this->healthId;
+        return $this->insurance;
     }
 
     /**
-     * Set the value of healthId
+     * Set the value of insurance
      *
      * @return  self
      */ 
-    public function setHealthId($healthId)
+    public function setInsurance($insurance)
     {
-        $this->healthId = $healthId;
+        $this->insurance = $insurance;
+
         return $this;
     }
 }

@@ -48,7 +48,7 @@ class UserHealthModel extends BaseModel implements modelInterface{
             'ageRange' => $data->getAgeRange()->getId(),
             'insurer' => $data->getInsurer()->getId(),
             'familyRelation' => $data->getRelation()->getId(),
-            'healthInsurance' => $data->getHealthInsurance()->getHealthId()
+            'healthInsurance' => $data->getHealthInsurance()->getId()
         ];
         $result = UserHealthModel::where('id', $data->getId())->get();
         if (count($result)) {

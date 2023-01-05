@@ -4,7 +4,7 @@ namespace App\Entities;
 use App\Classes\Date;
 use App\Entities\Payment;
 
-class LifeInsurance extends Insurance {
+class LifeInsurance extends Entity {
     private Payment $payment;
     private string $minimumMonthlyPay;
     private int $increasePercent;
@@ -14,27 +14,7 @@ class LifeInsurance extends Insurance {
     private int $medicalCost;
     private int $redemption;
     private int $deathFund;
-    private int $lifeId;
-
-    
-    /**
-     * Get the value of lifeId
-     */ 
-    public function getLifeId()
-    {
-        return $this->lifeId;
-    }
-
-    /**
-     * Set the value of lifeId
-     *
-     * @return  self
-     */ 
-    public function setLifeId($lifeId)
-    {
-        $this->lifeId = $lifeId;
-        return $this;
-    }
+    private Insurance $insurance;
 
     /**
      * Get the value of deathFund
@@ -204,6 +184,25 @@ class LifeInsurance extends Insurance {
     public function setPayment($payment)
     {
         $this->payment = $payment;
+        return $this;
+    }
+
+    /**
+     * Get the value of insurance
+     */ 
+    public function getInsurance()
+    {
+        return $this->insurance;
+    }
+
+    /**
+     * Set the value of insurance
+     *
+     * @return  self
+     */ 
+    public function setInsurance($insurance)
+    {
+        $this->insurance = $insurance;
         return $this;
     }
 }

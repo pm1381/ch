@@ -1,7 +1,7 @@
 <?php
 namespace App\Entities;
 
-class PropertyInsurance extends Insurance {
+class PropertyInsurance extends Entity {
     private int $isComplex;
     private int $state;
     private int $unit;
@@ -12,7 +12,6 @@ class PropertyInsurance extends Insurance {
     private BuildAge $buildAge;
     private City $city;
     private CostEachMeter $cost;
-    private int $propertyId; // property insurance table id
 
     /**
      * Get the value of cost

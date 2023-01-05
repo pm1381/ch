@@ -3,7 +3,7 @@ namespace App\Entities;
 
 class EarthquickInsurance extends PropertyInsurance {
     private string $name;
-    private int $earthId; // earth table id
+    private Insurance $insurance;
 
     /**
      * Get the value of name
@@ -25,21 +25,21 @@ class EarthquickInsurance extends PropertyInsurance {
     }
 
     /**
-     * Get the value of earthId
+     * Get the value of insurance
      */ 
-    public function getEarthId()
+    public function getInsurance()
     {
-        return $this->earthId;
+        return $this->insurance;
     }
 
     /**
-     * Set the value of earthId
+     * Set the value of insurance
      *
      * @return  self
-     */
-    public function setEarthId($earthId)
+     */ 
+    public function setInsurance($insurance)
     {
-        $this->earthId = $earthId;
+        $this->insurance = $insurance;
         return $this;
     }
 }
