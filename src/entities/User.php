@@ -1,12 +1,13 @@
 <?php
 namespace App\Entities;
 
-use App\Classes\Cookie;
-use App\Classes\Gate;
 use App\Classes\Jwt;
-use App\Classes\Session;
-use App\Models\UserModel;
+use App\Classes\Gate;
 use DateTimeImmutable;
+use App\Classes\Cookie;
+use App\Classes\Session;
+use App\Entities\Entity;
+use App\Models\UserModel;
 
 class User extends Entity {
     private string $email = '';
