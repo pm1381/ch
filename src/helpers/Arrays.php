@@ -11,6 +11,42 @@ class Arrays
         ];
     }
 
+    public static function duration()
+    {
+        return
+        [
+            '1' => '6monthes',
+            '2' => '1year',
+            '3' => '2years'
+        ];
+    }
+
+    public static function state()
+    {
+        return [
+            '1' => 'ویلایی',
+            '2' => 'مسکونی'
+        ];
+    }
+
+    public static function increaseFund()
+    {
+        return [
+            '1' => '5%',
+            '2' => '10%',
+            '3' => '15%'
+        ];
+    }
+
+    public function increasePercent()
+    {
+        return [
+            '1' => '5%',
+            '2' => '10%',
+            '3' => '15%'
+        ];
+    }
+
     public static function errorView()
     {
         return[
