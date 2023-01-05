@@ -48,11 +48,11 @@ class CoverHealthModel extends BaseModel implements modelInterface{
         if (count($result)) {
             return CoverHealthModel::where('id', $data->getId())->update(['cover' => $data->getCover()->getId(), 'maxPay' => $data->getMaxPay(), 'healthInsurance' => $data->getHealthInsurance()->getHealthId()]);
         }
-        $data = [
+        $tabledata = [
             'cover' => $data->getCover()->getId(),
             'maxPay' => $data->getMaxPay(),
             'healthInsurance' => $data->getHealthInsurance()->getHealthId()
         ];
-        return CoverHealthModel::create($data);
+        return CoverHealthModel::create($tabledata);
     }
 }

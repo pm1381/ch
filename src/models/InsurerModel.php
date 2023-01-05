@@ -1,7 +1,6 @@
 <?php
 namespace App\Models;
 
-use App\Classes\Redis;
 use App\Interfaces\Model as modelInterface;
 use Illuminate\Database\Eloquent\Model;
 

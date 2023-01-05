@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class InsuranceModel extends BaseModel implements modelInterface{
 
-    protected $fillable = ['discount', 'price', 'model'];
+    protected $fillable = ['discount', 'id', 'price', 'model'];
 
     public function __construct(){
         $this->table = 'insurance';
@@ -51,11 +51,11 @@ class InsuranceModel extends BaseModel implements modelInterface{
                 return $data->getId();
             }
         }
-        $data = [
+        $tabledata = [
             'price' => $data->getPrice(),
             'discount' => $data->getDiscount(),
             'model' => $data->getModel()->getId()
         ];
-        return InsuranceModel::insertGetId($data);
+        return InsuranceModel::insertGetId($tabledata);
     }
 }
